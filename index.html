@@ -652,7 +652,7 @@ pt:{
  "cat.lead":"Monte a peça (tipo + cor), tire uma foto, ou use uma peça de exemplo pra testar rápido.",
  "cat.buildBtn":"🎨 Montar a peça (sem foto)",
  "cat.photoBtn":"📸 Tirar foto / escolher da galeria",
- "cat.photoNote":"Neste preview a câmera pode não abrir — no MYFUKU de verdade ela abre normalmente.",
+ "cat.photoNote":"Neste preview a câmera pode não abrir — no MYFUKU de verdade ela abre normalmente.","cat.camBtn":"📷 Tirar foto agora","cat.galBtn":"🖼 Escolher da galeria","ai.batchGal":"ou escolher da galeria",
  "cat.orUse":"OU USE UMA PEÇA DE EXEMPLO",
  "cat.aiTitle":"A IA está olhando sua peça…","cat.aiSub":"Recortando o fundo e identificando tipo, cor e estação.",
  "cat.formTitle":"É isso aqui?","cat.formTitleEdit":"Editar peça","cat.detectLead":"A IA detectou — confira e ajuste o que precisar. É você quem manda.",
@@ -820,7 +820,7 @@ ja:{
  "cat.lead":"種類と色を選んで組み立てるか、写真を撮るか、下のサンプルで素早く試せます。",
  "cat.buildBtn":"🎨 アイテムを組み立てる（写真なし）",
  "cat.photoBtn":"📸 写真を撮る / ギャラリーから選ぶ",
- "cat.photoNote":"このプレビューではカメラが開かないことがあります — 本物のMYFUKUでは普通に開きます。",
+ "cat.photoNote":"このプレビューではカメラが開かないことがあります — 本物のMYFUKUでは普通に開きます。","cat.camBtn":"📷 今すぐ写真を撮る","cat.galBtn":"🖼 ギャラリーから選ぶ","ai.batchGal":"またはギャラリーから選ぶ",
  "cat.orUse":"またはサンプル服を使う",
  "cat.aiTitle":"AIが服を見ています…","cat.aiSub":"背景を切り取り、種類・色・季節を判定しています。",
  "cat.formTitle":"これは合っていますか？","cat.formTitleEdit":"服を編集","cat.detectLead":"AIが判定しました。確認して、直すところは直してください。",
@@ -988,7 +988,7 @@ en:{
  "cat.lead":"Build the piece (type + color), take a photo, or use a sample piece to test fast.",
  "cat.buildBtn":"🎨 Build the piece (no photo)",
  "cat.photoBtn":"📸 Take photo / choose from gallery",
- "cat.photoNote":"In this preview the camera may not open — in the real MYFUKU it opens normally.",
+ "cat.photoNote":"In this preview the camera may not open — in the real MYFUKU it opens normally.","cat.camBtn":"📷 Take a photo now","cat.galBtn":"🖼 Choose from gallery","ai.batchGal":"or choose from gallery",
  "cat.orUse":"OR USE A SAMPLE PIECE",
  "cat.aiTitle":"The AI is looking at your piece…","cat.aiSub":"Cutting out the background and identifying type, color and season.",
  "cat.formTitle":"Is this it?","cat.formTitleEdit":"Edit piece","cat.detectLead":"The AI detected this — check it and adjust whatever you need. You're in charge.",
@@ -3675,9 +3675,10 @@ function renderCatSource(){
     '<h3>'+(draft.editId ? t("cat.titleEdit") : t("cat.title"))+'</h3>'
     + '<div style="font-size:14px;color:var(--muted);line-height:1.5">'+t("cat.lead")+'</div>'
     + '<button class="btn primary big-cta" style="margin-top:16px" onclick="startBuild()">'+t("cat.buildBtn")+'</button>'
-    + '<label class="btn big-cta photo-label" style="display:block;text-align:center;margin-top:10px">'+t("cat.photoBtn")
+    + '<label class="btn primary big-cta photo-label" style="display:block;text-align:center;margin-top:10px">'+t("cat.camBtn")
+    + '<input class="photo-input" type="file" accept="image/*" capture="environment" onchange="onPhotoChosen(this)"></label>'
+    + '<label class="btn big-cta photo-label" style="display:block;text-align:center;margin-top:10px">'+t("cat.galBtn")
     + '<input class="photo-input" type="file" accept="image/*" onchange="onPhotoChosen(this)"></label>'
-    + '<div class="progress-note">'+t("cat.photoNote")+'</div>'
     + batchCtaHTML()
     + '<div class="look-title" style="margin-top:18px">'+t("cat.orUse")+'</div>'
     + '<div class="ex-grid">'+ex+'</div>'
@@ -3960,6 +3961,8 @@ var batch = null; /* { itens:[{photo,tags}], idx, salvos } */
 function batchCtaHTML(){
   if(aiUsed() >= AI_LIMIT) return '<div class="ai-box" style="margin-top:10px"><div class="ai-limit">'+t("ai.limit")+'</div></div>';
   return '<label class="btn big-cta photo-label" style="display:block;text-align:center;margin-top:10px">'+t("ai.batchBtn")
+    + '<input class="photo-input" type="file" accept="image/*" capture="environment" onchange="onBatchPhotoChosen(this)"></label>'
+    + '<label class="photo-label" style="display:block;text-align:center;margin-top:6px;font-size:13px;color:var(--muted);text-decoration:underline">'+t("ai.batchGal")
     + '<input class="photo-input" type="file" accept="image/*" onchange="onBatchPhotoChosen(this)"></label>'
     + '<div class="progress-note">'+t("ai.batchNote")+'</div>'
     + '<div class="ai-left" style="text-align:center;margin-top:2px">'+tt("ai.left", {n: AI_LIMIT - aiUsed()})+'</div>';
