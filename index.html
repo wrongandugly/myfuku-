@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#31438c">
+<meta name="theme-color" content="#111111">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -24,9 +24,13 @@ try{
 <title>MYFUKU — o guarda-roupa que te veste</title>
 <style>
   :root{
-    --paper:#faf7f1; --card:#ffffff; --ink:#23201b; --muted:#8a8378;
-    --indigo:#31438c; --indigo-soft:#e6eaf6; --line:#e8e2d6;
-    --red:#bb141d; --gold:#b98a1d; --radius:16px;
+    /* RESKIN LUXO (2026-11-16): preto e branco de verdade, cinzas frios,
+       UM acento — o dourado, contido. --indigo vira o preto principal:
+       tudo que era "índigo" no app (botões, seleções, selos) passa a
+       preto/cinza sem tocar na lógica. */
+    --paper:#f7f7f6; --card:#ffffff; --ink:#111111; --muted:#8b8b8b;
+    --indigo:#111111; --indigo-soft:#f0f0ef; --line:#e6e6e3;
+    --red:#bb141d; --gold:#b98a1d; --radius:12px;
     --fs-11:11px; --fs-12:12px; --fs-14:14px; --fs-16:16px; --fs-20:20px; --fs-28:28px; --fs-40:40px;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -35,8 +39,8 @@ try{
   .screen{display:none;flex-direction:column;min-height:100vh}
   .screen.active{display:flex}
   header{padding:20px 20px 6px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-  .logo{font-size:var(--fs-28);font-weight:800;letter-spacing:2px}
-  .logo .jp{font-size:var(--fs-16);font-weight:700;color:var(--indigo);letter-spacing:3px}
+  .logo{font-size:var(--fs-28);font-weight:700;letter-spacing:3px}
+  .logo .jp{font-size:var(--fs-16);font-weight:700;color:var(--gold);letter-spacing:4px}
   .tag{margin-left:auto;font-size:var(--fs-11);color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:3px 9px;background:#fff}
   .tag.premium{background:#fdf6e0;color:#8a5f10;border-color:var(--gold);font-weight:700}
   .sub{padding:0 20px 12px;font-size:var(--fs-12);color:var(--muted)}
@@ -67,7 +71,7 @@ try{
   .plan-chip{display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:var(--indigo-soft);color:var(--indigo);border-radius:99px;padding:6px 8px 6px 13px;font-size:var(--fs-12);font-weight:700}
   .plan-chip button{border:none;background:var(--indigo);color:#fff;width:19px;height:19px;border-radius:50%;font-size:11px;line-height:1;cursor:pointer;padding:0;font-family:inherit}
   /* ---- DRESS ME (botão-herói) + motivos do look + cerimônia da pilha ---- */
-  .dressme{flex:none;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--indigo);border:1px solid var(--indigo);color:#fff;border-radius:16px;padding:16px 0;font-size:var(--fs-20);font-weight:800;letter-spacing:4px;cursor:pointer;font-family:inherit;box-shadow:0 8px 20px rgba(49,67,140,.32)}
+  .dressme{flex:none;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--indigo);border:1px solid var(--indigo);color:#fff;border-radius:12px;padding:16px 0;font-size:var(--fs-20);font-weight:700;letter-spacing:4px;cursor:pointer;font-family:inherit;box-shadow:0 10px 24px rgba(0,0,0,.22)}
   .dressme:active{transform:scale(.985)}
   /* estado-convite: o look do dia ainda não nasceu (antes do DRESS ME) */
   .look-invite{border:2px dashed var(--line);border-radius:14px;padding:30px 18px 26px;text-align:center;color:var(--muted)}
@@ -75,11 +79,11 @@ try{
   .why-kicker{font-size:var(--fs-11);font-weight:800;letter-spacing:1.5px;color:var(--muted);margin:14px 2px 6px}
   .why-chips{display:flex;flex-wrap:wrap;gap:6px}
   .why-chip{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 11px;font-size:var(--fs-12);font-weight:700;color:var(--ink);line-height:1.45}
-  .why-chip.amber{background:#fdf3d7;border-color:#ecd28a;color:#7a5b12}
+  .why-chip.amber{background:#faf3da;border-color:#e3cf8f;color:#7a5b12}
   .trend-line{font-size:var(--fs-11);font-weight:600;color:var(--muted);margin:7px 2px 0;line-height:1.5}
   @keyframes stkIn{from{opacity:0;transform:translateY(16px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
   .stk-item.stk-in{animation:stkIn .5s cubic-bezier(.25,.9,.3,1.25) both}
-  .callout{border:1.5px dashed var(--gold);background:#fdf6e0;border-radius:var(--radius);padding:12px 14px;font-size:var(--fs-14);line-height:1.5}
+  .callout{border:1.5px dashed var(--gold);background:#faf7ec;border-radius:var(--radius);padding:12px 14px;font-size:var(--fs-14);line-height:1.5}
   .callout b{color:#8a5f10}
   .look-title{font-size:var(--fs-12);font-weight:700;letter-spacing:1px;color:var(--muted)}
   .piece-row{display:flex;align-items:center;gap:13px;padding:11px 2px;border-bottom:1px solid var(--line)}
@@ -94,7 +98,7 @@ try{
   .piece-meta{font-size:var(--fs-12);color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
   .piece-slot{font-size:var(--fs-11);font-weight:700;color:var(--indigo);letter-spacing:1px}
   .actions{display:flex;gap:10px}
-  .btn{flex:1;padding:15px 0;border-radius:14px;font-size:var(--fs-14);font-weight:700;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);font-family:inherit}
+  .btn{flex:1;padding:15px 0;border-radius:12px;font-size:var(--fs-14);font-weight:700;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);font-family:inherit}
   .btn.primary{background:var(--indigo);border-color:var(--indigo);color:#fff;flex:1.4}
   .btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
   .btn:disabled{opacity:.55;cursor:default}
@@ -105,10 +109,10 @@ try{
   .stats b{display:block;font-size:var(--fs-16);font-variant-numeric:tabular-nums}
   .stats span{font-size:var(--fs-11);color:var(--muted)}
   .row-head{display:flex;align-items:center;justify-content:space-between}
-  .row-head h2{font-size:var(--fs-20);font-weight:800;letter-spacing:.5px}
+  .row-head h2{font-size:var(--fs-20);font-weight:700;letter-spacing:.5px}
   .add-btn{background:var(--ink);color:#fff;border:none;border-radius:99px;padding:9px 15px;font-size:var(--fs-14);font-weight:700;cursor:pointer}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .g-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;text-align:left;font-family:inherit}
+  .g-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;text-align:left;font-family:inherit}
   .g-card .piece-ico{width:100%;height:74px;margin-bottom:9px}
   .g-card .piece-ico svg{width:56px;height:56px}
   .g-name{font-size:var(--fs-16);font-weight:700;line-height:1.25}
@@ -121,14 +125,14 @@ try{
   .dead-row{display:flex;gap:13px;align-items:center}
   .dead-info{flex:1}
   .mercari{margin-top:10px;background:var(--paper);border-radius:10px;padding:10px 12px;font-size:var(--fs-14);line-height:1.5;font-variant-numeric:tabular-nums}
-  .mercari b{color:var(--red)}
+  .mercari b{color:var(--ink)}
   #sellNet b{font-weight:800}
   .mini-btn{margin-top:9px;background:#fff;border:1px solid var(--ink);border-radius:99px;padding:8px 14px;font-size:var(--fs-12);font-weight:700;cursor:pointer;font-family:inherit}
   .explainer{font-size:var(--fs-14);color:var(--muted);line-height:1.55}
   .modal-bg{position:fixed;inset:0;background:rgba(20,18,14,.5);display:none;align-items:flex-end;justify-content:center;z-index:50}
   .modal-bg.open{display:flex}
-  .modal{background:#fff;width:100%;max-width:430px;border-radius:22px 22px 0 0;padding:22px 20px 30px;max-height:88vh;overflow:auto}
-  .modal h3{font-size:var(--fs-20);font-weight:800;letter-spacing:.5px;margin-bottom:4px}
+  .modal{background:#fff;width:100%;max-width:430px;border-radius:16px 16px 0 0;padding:22px 20px 30px;max-height:88vh;overflow:auto}
+  .modal h3{font-size:var(--fs-20);font-weight:700;letter-spacing:.5px;margin-bottom:4px}
   .modal .piece-ico{width:100%;height:130px;margin:12px 0}
   .modal .piece-ico svg{width:96px;height:96px}
   .kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:var(--fs-14);gap:12px}
@@ -140,18 +144,18 @@ try{
   footer{padding:0 20px 26px;font-size:var(--fs-11);color:var(--muted);text-align:center;line-height:1.6}
   /* ---- landing / cadastro / onboarding ---- */
   .landing{padding:52px 24px 28px;text-align:center;flex:1;display:flex;flex-direction:column}
-  .biglogo{font-size:var(--fs-40);font-weight:800;letter-spacing:3px;line-height:1.05}
-  .biglogo .jp{display:block;font-size:var(--fs-16);font-weight:700;color:var(--indigo);letter-spacing:7px;margin-top:6px}
+  .biglogo{font-size:var(--fs-40);font-weight:700;letter-spacing:4px;line-height:1.05}
+  .biglogo .jp{display:block;font-size:var(--fs-16);font-weight:700;color:var(--gold);letter-spacing:7px;margin-top:6px}
   .promise{font-size:var(--fs-16);font-weight:600;line-height:1.55;margin-top:20px}
   .promise b{color:var(--indigo)}
   .bullets{text-align:left;margin:24px auto 8px;width:100%;max-width:330px;display:flex;flex-direction:column;gap:11px;font-size:var(--fs-14);line-height:1.45}
   .bullets div{display:flex;gap:10px}
-  .bullets .bi{font-size:17px;flex-shrink:0}
+  .bullets .bi{font-size:var(--fs-12);font-weight:800;letter-spacing:1px;color:var(--gold);flex-shrink:0;padding-top:2px}
   .landing .actions{flex-direction:column;margin-top:26px}
   .landing .btn{width:100%}
   .fineprint{font-size:var(--fs-11);color:var(--muted);margin-top:14px;line-height:1.6}
   .form-wrap{padding:26px 20px 30px;flex:1}
-  .form-wrap h2{font-size:var(--fs-20);font-weight:800;letter-spacing:.5px;margin-bottom:6px}
+  .form-wrap h2{font-size:var(--fs-20);font-weight:700;letter-spacing:.5px;margin-bottom:6px}
   .form-wrap .lead{font-size:var(--fs-14);color:var(--muted);line-height:1.55;margin-bottom:20px}
   .field{margin-bottom:13px}
   .field label{display:block;font-size:var(--fs-12);font-weight:700;color:var(--muted);margin-bottom:6px}
@@ -166,9 +170,9 @@ try{
   /* ---- navegação inferior ---- */
   .bottomnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:1px solid var(--line);display:none;z-index:40}
   .bottomnav.show{display:flex}
-  .bottomnav button{flex:1;background:none;border:none;padding:9px 0 calc(11px + env(safe-area-inset-bottom));font-size:var(--fs-11);font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit}
+  .bottomnav button{flex:1;background:none;border:none;padding:15px 0 calc(15px + env(safe-area-inset-bottom));font-size:var(--fs-11);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);cursor:pointer;font-family:inherit}
   .bottomnav button .ni{display:block;font-size:20px;margin-bottom:2px}
-  .bottomnav button.active{color:var(--indigo)}
+  .bottomnav button.active{color:var(--ink);box-shadow:inset 0 2px 0 var(--ink)}
   /* ---- catalogação ---- */
   .ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
   .ex-card{border:1.5px solid var(--line);border-radius:14px;padding:13px 8px;background:#fff;cursor:pointer;text-align:center;font-family:inherit}
@@ -182,6 +186,7 @@ try{
   .ai-left{font-size:var(--fs-12);color:var(--muted);margin-top:8px}
   .ai-note{font-size:var(--fs-12);color:var(--muted);margin-top:8px;line-height:1.5}
   .ai-limit{font-size:13px;color:var(--muted);line-height:1.5}
+  .spin-ring{display:inline-block;width:34px;height:34px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--ink);animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .form-preview{width:100%;height:150px;border-radius:14px;background:var(--paper);display:flex;align-items:center;justify-content:center;overflow:hidden;margin:10px 0 14px}
   .form-preview svg{width:104px;height:104px}
@@ -189,11 +194,11 @@ try{
   .chipset{display:flex;gap:8px;flex-wrap:wrap}
   .chipset button{padding:9px 14px;border-radius:99px;border:1px solid var(--line);background:#fff;font-size:var(--fs-14);font-weight:600;color:var(--muted);cursor:pointer;font-family:inherit}
   .chipset button.active{background:var(--indigo);border-color:var(--indigo);color:#fff}
-  .big-cta{width:100%;padding:17px 0;font-size:var(--fs-16);border-radius:16px}
+  .big-cta{width:100%;padding:17px 0;font-size:var(--fs-16);border-radius:12px}
   .empty-ico{font-size:44px;text-align:center;margin:6px 0 4px}
   /* ---- conta / premium ---- */
-  .premium-card{background:linear-gradient(135deg,#33270f,#5a430f);color:#f7ead0;border:none}
-  .premium-card .plan-name{color:#f2c14e}
+  .premium-card{background:linear-gradient(135deg,#0c0c0c,#262626);color:#f5efe2;border:none}
+  .premium-card .plan-name{color:#d9b45b}
   .plan-name{font-size:var(--fs-12);font-weight:800;letter-spacing:1.5px}
   .plan-price{font-size:var(--fs-28);font-weight:800;margin:6px 0 2px;font-variant-numeric:tabular-nums}
   .plan-feats{font-size:var(--fs-14);line-height:1.7;margin-top:8px}
@@ -256,10 +261,10 @@ try{
   /* Amigos / visita */
   .friend-row{display:flex;align-items:center;gap:12px}
   .friend-ava{width:48px;height:48px;border-radius:50%;background:var(--indigo);color:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--fs-20);font-weight:800;flex:none}
-  .visit-banner{background:#eef2ff;border:1px solid var(--indigo);color:var(--indigo);border-radius:12px;padding:11px 13px;font-size:var(--fs-14);font-weight:700;text-align:center}
+  .visit-banner{background:var(--indigo-soft);border:1px solid var(--ink);color:var(--ink);border-radius:12px;padding:11px 13px;font-size:var(--fs-14);font-weight:700;text-align:center}
   .fr-badge{display:inline-block;font-size:var(--fs-11);font-weight:800;border-radius:999px;padding:2px 8px;margin-top:5px}
   .fr-badge.idle{background:#fff1d6;color:#96660a}
-  .fr-badge.wait{background:#e8ecff;color:var(--indigo)}
+  .fr-badge.wait{background:#efefef;color:var(--ink)}
   .fr-badge.nego{background:#e2f2e6;color:#256b25}
   .fr-badge.sold{background:#256b25;color:#fff}
   .bottomnav button{position:relative}
@@ -269,7 +274,7 @@ try{
   .bell-btn{position:relative;margin-left:8px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;padding:0;font-family:inherit}
   .bell-badge{position:absolute;top:-4px;right:-4px;min-width:17px;height:17px;border-radius:999px;background:#d33;color:#fff;font-size:var(--fs-11);font-weight:800;align-items:center;justify-content:center;padding:0 4px;box-sizing:border-box;font-variant-numeric:tabular-nums}
   .notif-item{display:flex;gap:11px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 14px;cursor:pointer;align-items:flex-start;text-align:left;width:100%;font-family:inherit;color:var(--ink)}
-  .notif-item.unread{border-color:var(--indigo);background:#eef2ff}
+  .notif-item.unread{border-color:var(--ink);background:var(--indigo-soft)}
   .notif-ico{font-size:20px;flex:none;line-height:1.25}
   .notif-main{font-size:var(--fs-14);font-weight:700;line-height:1.45}
   .notif-sub{font-size:var(--fs-12);color:var(--muted);margin-top:3px;line-height:1.45;font-variant-numeric:tabular-nums}
@@ -332,9 +337,9 @@ try{
       <div class="biglogo">MYFUKU<span class="jp">マ イ フ ク</span></div>
       <div class="promise" data-i18n-html="land.promise">O guarda-roupa que te veste: <b>suas roupas</b>, o <b>clima da hora</b>, o <b>look pronto</b>.</div>
       <div class="bullets">
-        <div><span class="bi">📸</span><span data-i18n="land.b1">Uma foto por peça — a IA etiqueta e seu armário se constrói pelo uso, sem cadastro chato.</span></div>
-        <div><span class="bi">🌦️</span><span data-i18n="land.b2">Vai sair agora, à noite ou amanhã? O look usa o clima do horário da saída.</span></div>
-        <div><span class="bi">💴</span><span data-i18n="land.b3">Roupa parada há muito tempo vira estimativa de venda e rascunho de anúncio no Mercari.</span></div>
+        <div><span class="bi">01</span><span data-i18n="land.b1">Uma foto por peça — a IA etiqueta e seu armário se constrói pelo uso, sem cadastro chato.</span></div>
+        <div><span class="bi">02</span><span data-i18n="land.b2">Vai sair agora, à noite ou amanhã? O look usa o clima do horário da saída.</span></div>
+        <div><span class="bi">03</span><span data-i18n="land.b3">Roupa parada há muito tempo vira valor estimado — e o anúncio pronto, se quiser vender.</span></div>
       </div>
       <div class="actions">
         <button class="btn primary" style="flex:1" data-i18n="land.create" onclick="goSignup()">Criar conta grátis</button>
@@ -492,7 +497,7 @@ try{
       <section id="sec-mortas">
         <div class="card">
           <div class="look-title" data-i18n="dd.title">ROUPAS MORTAS 💤</div>
-          <div class="explainer" style="margin-top:8px" data-i18n-html="dd.explainer">Peças paradas há <b>60+ dias</b> aparecem aqui com estimativa de venda e um rascunho de anúncio pro marketplace que você escolher (Mercari, Rakuma, PayPayフリマ, ヤフオク) — é a sua roupa virando dinheiro de volta, em vez de ocupar gaveta. E qualquer peça do armário pode ser vendida a qualquer hora, pela ficha dela.</div>
+          <div class="explainer" style="margin-top:8px" data-i18n-html="dd.explainer">Peças paradas há <b>60+ dias</b> aparecem aqui com estimativa de venda e um rascunho de anúncio pro marketplace que você escolher — é a sua roupa virando dinheiro de volta, em vez de ocupar gaveta. E qualquer peça do armário pode ser vendida a qualquer hora, pela ficha dela.</div>
         </div>
         <div id="deadArea" style="display:flex;flex-direction:column;gap:12px"></div>
       </section>
@@ -521,12 +526,12 @@ try{
     <footer data-i18n="home.footer">MYFUKU · protótipo da jornada completa — conta e peças ficam salvos neste aparelho.</footer>
 
     <nav class="bottomnav" id="bottomNav">
-      <button id="nav-hoje" class="active" onclick="showTab('hoje')"><span class="ni">🏠</span><span data-i18n="nav.hoje">Hoje</span></button>
-      <button id="nav-armario" onclick="showTab('armario')"><span class="ni">👕</span><span data-i18n="nav.armario">Armário</span></button>
-      <button id="nav-mortas" onclick="showTab('mortas')"><span class="ni">💴</span><span data-i18n="nav.mortas">Mortas</span></button>
-      <button id="nav-noticias" onclick="showTab('noticias')"><span class="ni">📰</span><span data-i18n="nav.noticias">Notícias</span></button>
-      <button id="nav-amigos" onclick="showTab('amigos')"><span class="ni">👥</span><span data-i18n="nav.amigos">Amigos</span><span id="amigosBadge" class="nav-badge" style="display:none"></span></button>
-      <button id="nav-conta" onclick="showTab('conta')"><span class="ni">👤</span><span data-i18n="nav.conta">Conta</span></button>
+      <button id="nav-hoje" class="active" onclick="showTab('hoje')"><span data-i18n="nav.hoje">Hoje</span></button>
+      <button id="nav-armario" onclick="showTab('armario')"><span data-i18n="nav.armario">Armário</span></button>
+      <button id="nav-mortas" onclick="showTab('mortas')"><span data-i18n="nav.mortas">Mortas</span></button>
+      <button id="nav-noticias" onclick="showTab('noticias')"><span data-i18n="nav.noticias">Notícias</span></button>
+      <button id="nav-amigos" onclick="showTab('amigos')"><span data-i18n="nav.amigos">Amigos</span><span id="amigosBadge" class="nav-badge" style="display:none"></span></button>
+      <button id="nav-conta" onclick="showTab('conta')"><span data-i18n="nav.conta">Conta</span></button>
     </nav>
   </div>
 </div>
@@ -569,7 +574,7 @@ pt:{
  "land.promise":"O guarda-roupa que te veste: <b>suas roupas</b>, o <b>clima da hora</b>, o <b>look pronto</b>.",
  "land.b1":"Uma foto por peça — a IA etiqueta e seu armário se constrói pelo uso, sem cadastro chato.",
  "land.b2":"Vai sair agora, à noite ou amanhã? O look usa o clima do horário da saída.",
- "land.b3":"Roupa parada há muito tempo vira estimativa de venda e rascunho de anúncio no Mercari.",
+ "land.b3":"Roupa parada há muito tempo vira valor estimado — e o anúncio pronto, se quiser vender.",
  "land.create":"Criar conta grátis","land.login":"Já tenho conta","land.loginAs":"Já tenho conta · entrar como {name}",
  "land.free":"Grátis pra começar · sem cartão.<br>Premium opcional por ¥600/mês — só se você quiser mais.",
  "land.hintFound":"Conta encontrada neste aparelho — toque em “já tenho conta” pra continuar de onde parou.<br>Premium opcional por ¥600/mês.",
@@ -635,7 +640,7 @@ pt:{
  "pc.saleLine":"🏷️ <b>À venda</b> no {m} por <b>{price}</b> — e fora dos looks enquanto estiver anunciada.",
  "pc.unlist":"Retirar do anúncio","pc.editAd":"Editar anúncio",
  "dd.title":"ROUPAS MORTAS 💤",
- "dd.explainer":"Peças paradas há <b>60+ dias</b> aparecem aqui com estimativa de venda e um rascunho de anúncio pro marketplace que você escolher (Mercari, Rakuma, PayPayフリマ, ヤフオク) — é a sua roupa virando dinheiro de volta, em vez de ocupar gaveta. E qualquer peça do armário pode ser vendida a qualquer hora, pela ficha dela.",
+ "dd.explainer":"Peças paradas há <b>60+ dias</b> aparecem aqui com estimativa de venda e um rascunho de anúncio pro marketplace que você escolher — é a sua roupa virando dinheiro de volta, em vez de ocupar gaveta. E qualquer peça do armário pode ser vendida a qualquer hora, pela ficha dela.",
  "dd.staleLine":"parada há {d} dias","dd.bought":" · custou {price}",
  "dd.estYes":"Peças como esta estão saindo por <b>≈ {est}</b> (estimativa).","dd.estNo":"Cadastre o preço de compra pra estimarmos o valor de venda.",
  "dd.sell":"🏷️ Vender — escolher marketplace",
@@ -644,7 +649,7 @@ pt:{
  "ac.title":"Sua conta","ac.name":"Nome","ac.email":"E-mail","ac.city":"Cidade (clima)","ac.uniform":"Uniforme no trabalho","ac.gender":"Gênero","ac.genderUnset":"não definido","ac.yes":"sim","ac.no":"não",
  "ac.freeName":"PLANO GRÁTIS","ac.freeYours":" · o seu","ac.freeFeats":"✓ Looks por clima e ocasião<br>✓ Rodízio justo das suas peças<br>✓ Custo por uso<br>✓ Alerta de roupa morta com estimativa",
  "ac.premName":"PREMIUM ✦","ac.premActive":"PREMIUM ✦ ATIVO (simulação)","ac.perMonth":"/mês",
- "ac.premFeats":"✓ Looks com IA avançada<br>✓ Estatísticas completas do armário<br>✓ Alerta de roupa morta antecipado<br>✓ Rascunho de anúncio automático no Mercari",
+ "ac.premFeats":"✓ Looks com IA avançada<br>✓ Estatísticas completas do armário<br>✓ Alerta de roupa morta antecipado<br>✓ Rascunho de anúncio automático",
  "ac.subscribe":"Assinar (simulação)","ac.activeBtn":"Premium ativo (simulação)",
  "ac.reset":"↺ Recomeçar como usuário novo","ac.resetFine":"Apaga a conta, as peças e os usos salvos neste aparelho e volta pra tela inicial — é assim que se testa a jornada de novo.",
  "ac.langTitle":"IDIOMA · 言語 · LANGUAGE","ac.langNote":"O MYFUKU de verdade nasce em japonês, com inglês junto. Troque e veja o protótipo inteiro mudar na hora:",
@@ -803,7 +808,7 @@ ja:{
  "pc.saleLine":"🏷️ {m} に <b>{price}</b> で<b>出品中</b>です — 出品中はコーデに入りません。",
  "pc.unlist":"出品を取り消す","pc.editAd":"出品を編集",
  "dd.title":"眠っている服 💤",
- "dd.explainer":"<b>60日</b>以上着ていない服が、売値の目安と出品の下書きと一緒にここに自動で表示されます — Mercari、ラクマ、PayPayフリマ、ヤフオクから選べます。お金に変えましょう。クローゼットのどの服も、詳細からいつでも売れます。",
+ "dd.explainer":"<b>60日</b>以上着ていない服が、売値の目安と出品の下書きと一緒にここに自動で表示されます。お金に変えましょう。クローゼットのどの服も、詳細からいつでも売れます。",
  "dd.staleLine":"{d}日 着ていない","dd.bought":" · 購入 {price}",
  "dd.estYes":"似た服は <b>≈ {est}</b> で売れています（目安）。","dd.estNo":"購入価格を登録すると、売値の目安が出せます。",
  "dd.sell":"🏷️ 売る — マーケットを選ぶ",
@@ -971,7 +976,7 @@ en:{
  "pc.saleLine":"🏷️ <b>For sale</b> on {m} for <b>{price}</b> — and out of the looks while it's listed.",
  "pc.unlist":"Remove listing","pc.editAd":"Edit listing",
  "dd.title":"IDLE CLOTHES 💤",
- "dd.explainer":"Pieces idle for <b>60+ days</b> show up here with a price estimate and a listing draft for the marketplace you choose (Mercari, Rakuma, PayPayフリマ, ヤフオク) — your clothes turning back into money instead of taking up drawer space. And any piece in your closet can be sold anytime, from its details.",
+ "dd.explainer":"Pieces idle for <b>60+ days</b> show up here with a price estimate and a listing draft for the marketplace you choose — your clothes turning back into money instead of taking up drawer space. And any piece in your closet can be sold anytime, from its details.",
  "dd.staleLine":"idle for {d} days","dd.bought":" · cost {price}",
  "dd.estYes":"Pieces like this are going for <b>≈ {est}</b> (estimate).","dd.estNo":"Add the purchase price so we can estimate the resale value.",
  "dd.sell":"🏷️ Sell — choose marketplace",
@@ -980,7 +985,7 @@ en:{
  "ac.title":"Your account","ac.name":"Name","ac.email":"E-mail","ac.city":"City (weather)","ac.uniform":"Uniform at work","ac.gender":"Gender","ac.genderUnset":"not set","ac.yes":"yes","ac.no":"no",
  "ac.freeName":"FREE PLAN","ac.freeYours":" · yours","ac.freeFeats":"✓ Looks by weather and occasion<br>✓ Fair rotation of your pieces<br>✓ Cost per wear<br>✓ Idle-clothes alert with estimate",
  "ac.premName":"PREMIUM ✦","ac.premActive":"PREMIUM ✦ ACTIVE (simulation)","ac.perMonth":"/month",
- "ac.premFeats":"✓ Looks with advanced AI<br>✓ Full closet statistics<br>✓ Early idle-clothes alert<br>✓ Automatic Mercari listing draft",
+ "ac.premFeats":"✓ Looks with advanced AI<br>✓ Full closet statistics<br>✓ Early idle-clothes alert<br>✓ Automatic listing drafts",
  "ac.subscribe":"Subscribe (simulation)","ac.activeBtn":"Premium active (simulation)",
  "ac.reset":"↺ Restart as a new user","ac.resetFine":"Erases the account, pieces and wears saved on this device and goes back to the start screen — that's how you test the journey again.",
  "ac.langTitle":"LANGUAGE · 言語","ac.langNote":"The real MYFUKU is born in Japanese, with English alongside. Switch and watch the whole prototype change instantly:",
@@ -1289,7 +1294,7 @@ function iconSVG(kind, color){
     bag:    '<path d="M38 42 Q38 18 50 18 Q62 18 62 42" fill="none" stroke="#23201b" stroke-width="3.5"/><path d="M27 40 L73 40 L79 86 L21 86 Z" '+s+'/><line x1="28" y1="54" x2="72" y2="54" stroke="#23201b" stroke-width="2.5"/><rect x="45" y="50" width="10" height="8" fill="none" stroke="#23201b" stroke-width="2.5"/>',
     backpack:'<path d="M34 32 Q34 15 50 15 Q66 15 66 32 L66 80 Q66 87 59 87 L41 87 Q34 87 34 80 Z" '+s+'/><path d="M42 56 L58 56 L59 76 L41 76 Z" '+s+'/><line x1="34" y1="40" x2="66" y2="40" stroke="#23201b" stroke-width="2.5"/><path d="M44 15 Q50 8 56 15" fill="none" stroke="#23201b" stroke-width="3"/>',
     cap:    '<path d="M22 60 Q24 34 50 34 Q76 34 78 60 Z" '+s+'/><path d="M14 60 L86 60 Q90 60 90 65 Q90 71 82 71 L18 71 Q10 71 10 65 Q10 60 14 60 Z" '+s+'/><line x1="50" y1="34" x2="50" y2="60" stroke="#23201b" stroke-width="2.5"/>',
-    watch:  '<path d="M42 6 L58 6 L58 26 L42 26 Z" '+s+'/><path d="M42 74 L58 74 L58 94 L42 94 Z" '+s+'/><circle cx="50" cy="50" r="21" '+s+'/><circle cx="50" cy="50" r="15" fill="#faf7f1" stroke="#23201b" stroke-width="2.5"/><line x1="50" y1="50" x2="50" y2="41" stroke="#23201b" stroke-width="2.5"/><line x1="50" y1="50" x2="57" y2="53" stroke="#23201b" stroke-width="2.5"/>',
+    watch:  '<path d="M42 6 L58 6 L58 26 L42 26 Z" '+s+'/><path d="M42 74 L58 74 L58 94 L42 94 Z" '+s+'/><circle cx="50" cy="50" r="21" '+s+'/><circle cx="50" cy="50" r="15" fill="#ffffff" stroke="#23201b" stroke-width="2.5"/><line x1="50" y1="50" x2="50" y2="41" stroke="#23201b" stroke-width="2.5"/><line x1="50" y1="50" x2="57" y2="53" stroke="#23201b" stroke-width="2.5"/>',
     glasses:'<circle cx="31" cy="55" r="14" fill="'+color+'" fill-opacity="0.22" stroke="'+color+'" stroke-width="3.5"/><circle cx="69" cy="55" r="14" fill="'+color+'" fill-opacity="0.22" stroke="'+color+'" stroke-width="3.5"/><path d="M45 52 Q50 46 55 52" fill="none" stroke="'+color+'" stroke-width="3.5"/><path d="M17 52 L8 44 M83 52 L92 44" fill="none" stroke="'+color+'" stroke-width="3.5"/>',
     belt:   '<path d="M8 44 L92 44 L92 60 L8 60 Z" '+s+'/><rect x="40" y="41" width="20" height="22" fill="none" stroke="#23201b" stroke-width="3.5"/><circle cx="70" cy="52" r="2.4" fill="#23201b"/><circle cx="79" cy="52" r="2.4" fill="#23201b"/><circle cx="88" cy="52" r="2.4" fill="#23201b"/>'
   };
@@ -1781,7 +1786,7 @@ function renderHoje(){
     var n = pieces().length;
     function ck(ok, label){ return '<div class="checkline"><span class="ck" style="color:'+(ok?"#256b25":"var(--muted)")+'">'+(ok?"✓":"○")+'</span> '+label+'</div>'; }
     area.innerHTML =
-      '<div class="card"><div class="empty-ico">👗</div>'
+      '<div class="card">'
       + '<div class="look-title" style="text-align:center">'+t("look.firstTitle")+'</div>'
       + '<div class="explainer" style="text-align:center;margin-top:8px">'+tt("look.firstBody", {n:n})+'</div>'
       + '<div style="margin-top:10px">'
@@ -2014,7 +2019,7 @@ function renderCloset(){
   var ps = pieces();
   if(ps.length===0){
     if(tabsEl) tabsEl.style.display = "none";
-    w.innerHTML = '<div class="card"><div class="empty-ico">🪝</div>'
+    w.innerHTML = '<div class="card">'
       + '<div class="explainer" style="text-align:center">'+t("cl.empty")+'</div>'
       + '<button class="btn primary big-cta" style="margin-top:14px" onclick="openCatalog()">'+t("cl.ctaFirst")+'</button></div>';
     return;
@@ -2096,7 +2101,7 @@ function renderDead(){
       + '<br><button class="mini-btn" onclick="openSell(\''+p.id+'\')">'+t("dd.sell")+'</button></div></div>';
   });
   if(realDead.length===0){
-    html += '<div class="card"><div class="empty-ico">💤</div>'
+    html += '<div class="card">'
       + '<div class="explainer" style="text-align:center">'+t("dd.empty")+'</div></div>';
   }
   w.innerHTML = html;
@@ -2325,7 +2330,7 @@ function pwaSetup(){
       cv.width = 512; cv.height = 512;
       var ctx = cv.getContext ? cv.getContext("2d") : null;
       if(ctx && typeof Path2D !== "undefined"){
-        ctx.fillStyle = "#23201b"; ctx.fillRect(0, 0, 512, 512);
+        ctx.fillStyle = "#000000"; ctx.fillRect(0, 0, 512, 512);
         ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 26; ctx.lineCap = "round"; ctx.lineJoin = "round";
         ctx.stroke(new Path2D(HOOK));
         ctx.stroke(new Path2D(BODY));
@@ -2335,7 +2340,7 @@ function pwaSetup(){
     /* 2) reserva: o mesmo desenho como SVG embutido */
     if(!iconURL){
       var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
-        + '<rect width="512" height="512" rx="96" fill="#23201b"/>'
+        + '<rect width="512" height="512" rx="96" fill="#000000"/>'
         + '<g fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">'
         + '<path d="' + HOOK + '"/><path d="' + BODY + '"/></g></svg>';
       iconURL = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
@@ -2357,7 +2362,7 @@ function pwaSetup(){
         var manifest = {
           name: "MYFUKU", short_name: "MYFUKU",
           start_url: ".", scope: ".", display: "standalone",
-          background_color: "#faf7f1", theme_color: "#31438c",
+          background_color: "#ffffff", theme_color: "#111111",
           icons: [{ src: iconURL, sizes: "512x512", type: iconType, purpose: "any" }]
         };
         var blob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
@@ -2551,7 +2556,7 @@ function codePixelsSVG(code){
       if(x2 < 4 ? row[x2] : row[7 - x2]) rects += '<rect x="' + (x2 * 10) + '" y="' + (y * 10) + '" width="10" height="10"/>';
     }
   }
-  return '<svg viewBox="0 0 80 80" width="72" height="72" style="display:block" aria-hidden="true"><rect width="80" height="80" fill="#ffffff"/><g fill="#31438c">' + rects + '</g></svg>';
+  return '<svg viewBox="0 0 80 80" width="72" height="72" style="display:block" aria-hidden="true"><rect width="80" height="80" fill="#ffffff"/><g fill="#111111">' + rects + '</g></svg>';
 }
 function identityCardHTML(){
   if(!S || !S.profile) return "";
@@ -2654,7 +2659,7 @@ function renderAmigos(){
     + '<input id="fr-add-input" type="text" placeholder="'+esc(t("fr.addPh"))+'" style="flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:12px 13px;font-size:var(--fs-14);font-family:inherit;background:#fff;color:var(--ink)">'
     + '<button class="btn primary" onclick="addFriend()">'+t("fr.add")+'</button></div>'
     + '<div class="explainer" style="margin-top:10px">'+t("fr.privacy")+'</div></div>'
-    + '<div class="card"><div class="empty-ico">👥</div><div class="explainer" style="text-align:center">'+t("fr.empty")+'</div></div>';
+    + '<div class="card"><div class="explainer" style="text-align:center">'+t("fr.empty")+'</div></div>';
 }
 function visitFriend(id){
   Object.keys(asks()).forEach(function(k){ if(k.indexOf(id+":")===0 && asks()[k].unread){ asks()[k].unread = false; } });
@@ -2962,7 +2967,7 @@ function judgeSVG(g){
     return '<svg viewBox="0 0 100 112">'
       + '<path d="M27 40 Q27 14 50 14 Q73 14 73 40 L64 40 Q63 26 50 26 Q37 26 36 40 Z" fill="'+ink+'"/>'
       + face
-      + '<path d="M35 68 L65 68 L69 106 L31 106 Z" fill="#31438c" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>'
+      + '<path d="M35 68 L65 68 L69 106 L31 106 Z" fill="#46586e" stroke="'+ink+'" stroke-width="3" stroke-linejoin="round"/>'
       + '<rect x="45" y="60" width="10" height="10" fill="#ffffff" stroke="'+ink+'" stroke-width="2.4"/></svg>';
   }
   return '<svg viewBox="0 0 100 112">'
@@ -3572,7 +3577,7 @@ function processPhoto(dataUrl, cb){
 }
 function startDetect(){
   document.getElementById("catModal").innerHTML =
-    '<div class="ai-wait"><span class="spin">🔍</span>'
+    '<div class="ai-wait"><span class="spin-ring"></span>'
     + '<div style="font-size:16px;font-weight:700;margin-top:14px">'+t("cat.aiTitle")+'</div>'
     + '<div style="font-size:12px;color:var(--muted);margin-top:6px">'+t("cat.aiSub")+'</div></div>';
   setTimeout(function(){ renderCatForm(); }, 900);
@@ -3745,7 +3750,7 @@ function onBatchPhotoChosen(input){
 }
 function batchDetect(small){
   document.getElementById("catModal").innerHTML =
-    '<div class="ai-wait"><span class="spin">🔍</span>'
+    '<div class="ai-wait"><span class="spin-ring"></span>'
     + '<div style="font-size:16px;font-weight:700;margin-top:14px">'+t("ai.batchTitle")+'</div>'
     + '<div style="font-size:12px;color:var(--muted);margin-top:6px">'+t("ai.batchSub")+'</div></div>';
   var b64 = String(small).split(",")[1] || "";
