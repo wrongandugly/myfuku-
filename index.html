@@ -592,7 +592,7 @@ pt:{
  "home.footer":"MYFUKU · protótipo da jornada completa — conta e peças ficam salvos neste aparelho.",
  "nav.hoje":"Hoje","nav.armario":"Armário","nav.mortas":"Mortas","nav.conta":"Conta",
  "mom.agora":"Agora","mom.noite":"Hoje à noite","mom.amanha":"Amanhã",
- "wx.srcReal":"tempo real · Open-Meteo","wx.srcDemo":"previsão demonstrativa",
+ "wx.srcReal":"tempo real · Open-Meteo","wx.srcDemo":"previsão demonstrativa","wxc.0n":"céu limpo","wx.off":"Clima indisponível no momento","wx.loading":"Buscando o clima…",
  "wx.temp":"Temperatura: {t}°","wx.rain":" · chuva {p}%","wx.now":"agora",
  "wxc.0":"ensolarado","wxc.2":"parcialmente nublado","wxc.3":"nublado","wxc.45":"neblina","wxc.51":"garoa","wxc.56":"chuva gelada","wxc.61":"chuva","wxc.71":"neve","wxc.80":"pancadas de chuva","wxc.85":"pancadas de neve","wxc.95":"tempestade","wxc.x":"tempo firme",
  "wxn.agora":"agora","wxn.noite":"à noite","wxn.amanha":"amanhã",
@@ -760,7 +760,7 @@ ja:{
  "home.footer":"MYFUKU · プロトタイプ — アカウントと服はこの端末に保存されます。",
  "nav.hoje":"今日","nav.armario":"クローゼット","nav.mortas":"眠っている服","nav.conta":"アカウント",
  "mom.agora":"今","mom.noite":"今夜","mom.amanha":"明日",
- "wx.srcReal":"リアルタイム · Open-Meteo","wx.srcDemo":"サンプルの予報",
+ "wx.srcReal":"リアルタイム · Open-Meteo","wx.srcDemo":"サンプルの予報","wxc.0n":"晴れた夜空","wx.off":"天気を取得できませんでした","wx.loading":"天気を取得中…",
  "wx.temp":"気温： {t}°","wx.rain":" · 雨 {p}%","wx.now":"いま",
  "wxc.0":"晴れ","wxc.2":"晴れ時々くもり","wxc.3":"くもり","wxc.45":"霧","wxc.51":"霧雨","wxc.56":"冷たい雨","wxc.61":"雨","wxc.71":"雪","wxc.80":"にわか雨","wxc.85":"にわか雪","wxc.95":"雷雨","wxc.x":"晴れ時々くもり",
  "wxn.agora":"いま","wxn.noite":"夜","wxn.amanha":"明日",
@@ -928,7 +928,7 @@ en:{
  "home.footer":"MYFUKU · full-journey prototype — account and pieces are saved on this device.",
  "nav.hoje":"Today","nav.armario":"Closet","nav.mortas":"Idle","nav.conta":"Account",
  "mom.agora":"Now","mom.noite":"Tonight","mom.amanha":"Tomorrow",
- "wx.srcReal":"real-time · Open-Meteo","wx.srcDemo":"sample forecast",
+ "wx.srcReal":"real-time · Open-Meteo","wx.srcDemo":"sample forecast","wxc.0n":"clear night sky","wx.off":"Weather unavailable right now","wx.loading":"Fetching the weather…",
  "wx.temp":"Temperature: {t}°","wx.rain":" · rain {p}%","wx.now":"now",
  "wxc.0":"sunny","wxc.2":"partly cloudy","wxc.3":"cloudy","wxc.45":"fog","wxc.51":"drizzle","wxc.56":"freezing rain","wxc.61":"rain","wxc.71":"snow","wxc.80":"rain showers","wxc.85":"snow showers","wxc.95":"thunderstorm","wxc.x":"fair",
  "wxn.agora":"now","wxn.noite":"tonight","wxn.amanha":"tomorrow",
@@ -1173,15 +1173,17 @@ var CITY_COORDS = {
   "nagoya":[35.1815,136.9066], "fukuoka":[33.5904,130.4017],
   "sapporo":[43.0618,141.3545], "sendai":[38.2682,140.8694]
 };
-var WX = null; /* dados reais por momento; null = usar blocos demonstrativos */
-var WX_TRIED = false;
+var WX = null; /* dados reais por momento; null = clima real indisponível (a UI diz isso, sem inventar número) */
+var WX_LAST_TRY = 0;
+var WX_FAILED = false;
 function cityKey(name){
   var k = String(name || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
   return CITY_COORDS[k] ? k : "gyoda";
 }
-function wcodeInfo(code){
+function wcodeInfo(code, isDay){
+  var night = (isDay === 0 || isDay === false);
   var key = "wxc.x";
-  if(code===0 || code===1) key = "wxc.0";
+  if(code===0 || code===1) key = night ? "wxc.0n" : "wxc.0";
   else if(code===2) key = "wxc.2";
   else if(code===3) key = "wxc.3";
   else if(code===45 || code===48) key = "wxc.45";
@@ -1192,7 +1194,8 @@ function wcodeInfo(code){
   else if(code===80 || code===81 || code===82) key = "wxc.80";
   else if(code===85 || code===86) key = "wxc.85";
   else if(code===95 || code===96 || code===99) key = "wxc.95";
-  var icos = {"wxc.0":"☀️","wxc.2":"⛅","wxc.3":"☁️","wxc.45":"🌫️","wxc.51":"🌦️","wxc.56":"🌧️","wxc.61":"🌧️","wxc.71":"❄️","wxc.80":"🌧️","wxc.85":"❄️","wxc.95":"⛈️","wxc.x":"🌤️"};
+  var icos = {"wxc.0":"☀️","wxc.0n":"🌙","wxc.2":"⛅","wxc.3":"☁️","wxc.45":"🌫️","wxc.51":"🌦️","wxc.56":"🌧️","wxc.61":"🌧️","wxc.71":"❄️","wxc.80":"🌧️","wxc.85":"❄️","wxc.95":"⛈️","wxc.x":"🌤️"};
+  if(code===2 && night) return {ico:"🌙", label:t("wxc.2")};
   return {ico:icos[key], label:t(key)};
 }
 function wxSeasonOuter(t){
@@ -1211,36 +1214,48 @@ function wxTip(temp, pop, outer){
 }
 function momentData(){
   if(WX && WX[ui.momento]) return WX[ui.momento];
-  return moments()[ui.momento];
+  /* Sem clima real, a LÓGICA do look usa a estação do calendário (mês)
+     como padrão — mas a TELA nunca mostra os números demonstrativos:
+     renderWeather declara o clima indisponível em vez de fingir. */
+  var m = moments()[ui.momento];
+  var mo = new Date().getMonth() + 1;
+  var s = (mo === 12 || mo <= 2) ? ["frio"] : mo <= 4 ? ["frio", "ameno"] : mo <= 6 ? ["ameno"] : mo <= 9 ? ["ameno", "quente"] : ["ameno", "frio"];
+  var out = {}; for(var k in m) out[k] = m[k];
+  out.seasons = s;
+  out.outer = s.indexOf("frio") >= 0;
+  return out;
 }
 function fetchWeather(){
-  if(WX_TRIED || !S) return;
-  WX_TRIED = true;
+  if(!S || WX) return;
+  var nowMs = Date.now();
+  if(WX_LAST_TRY && nowMs - WX_LAST_TRY < 60000) return; /* no máx. 1 tentativa/min */
+  WX_LAST_TRY = nowMs;
+  WX_FAILED = false;
   if(typeof fetch !== "function") return;
   var coords = CITY_COORDS[cityKey(account().city)];
   var city = account().city;
   var url = "https://api.open-meteo.com/v1/forecast?latitude="+coords[0]+"&longitude="+coords[1]
-    + "&current=temperature_2m,weather_code"
-    + "&hourly=temperature_2m,precipitation_probability,weather_code"
+    + "&current=temperature_2m,weather_code,is_day"
+    + "&hourly=temperature_2m,precipitation_probability,weather_code,is_day"
     + "&timezone=Asia%2FTokyo&forecast_days=2";
   fetch(url).then(function(r){ return r.json(); }).then(function(d){
-    if(!d || !d.current || !d.hourly || !d.hourly.time) return;
+    if(!d || !d.current || !d.hourly || !d.hourly.time){ WX_FAILED = true; renderWeather(); return; }
     function hAt(dayOffset, hour){
       var dt = new Date(); dt.setDate(dt.getDate()+dayOffset);
       var key = dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0")+"T"+String(hour).padStart(2,"0")+":00";
       var i = d.hourly.time.indexOf(key);
       if(i<0) return null;
-      return { t:d.hourly.temperature_2m[i], code:d.hourly.weather_code[i],
+      return { t:d.hourly.temperature_2m[i], code:d.hourly.weather_code[i], isDay:(d.hourly.is_day ? d.hourly.is_day[i] : 1),
                pop:(d.hourly.precipitation_probability ? d.hourly.precipitation_probability[i] : null) };
     }
     function popTxt(pop){ return (pop===null || pop===undefined) ? "" : tt("wx.rain", {p:pop}); }
     function tmp(h){ return h ? Math.round(h.t)+"°" : "—"; }
     function mk(h, titleKey, whenKey){
-      var info = wcodeInfo(h.code), so = wxSeasonOuter(h.t);
-      return { ico:info.ico, temp:Math.round(h.t), code:h.code, main:city+" · "+info.label+" "+t(whenKey), sub:tt("wx.temp", {t:Math.round(h.t)})+popTxt(h.pop),
+      var info = wcodeInfo(h.code, h.isDay), so = wxSeasonOuter(h.t);
+      return { ico:info.ico, temp:Math.round(h.t), code:h.code, isDay:h.isDay, main:city+" · "+info.label+" "+t(whenKey), sub:tt("wx.temp", {t:Math.round(h.t)})+popTxt(h.pop),
                seasons:so.seasons, outer:so.outer, title:t(titleKey), curve:[], tip:wxTip(h.t, h.pop, so.outer) };
     }
-    var now = { t:d.current.temperature_2m, code:d.current.weather_code, pop:null };
+    var now = { t:d.current.temperature_2m, code:d.current.weather_code, isDay:d.current.is_day, pop:null };
     var ch = hAt(0, new Date().getHours());
     if(ch && ch.pop!==null && ch.pop!==undefined) now.pop = ch.pop;
     var ma = mk(now, "look.title.agora", "wxn.agora");
@@ -1254,7 +1269,7 @@ function fetchWeather(){
     WX = {agora:ma, noite:mn, amanha:mt};
     renderWeather(); renderHoje();
     judgeWeatherCheck();
-  }).catch(function(){ /* sem rede/webview: ficam os blocos demonstrativos */ });
+  }).catch(function(){ WX_FAILED = true; renderWeather(); /* sem rede: a tela declara, sem inventar clima */ });
 }
 
 /* ================= ÍCONES ================= */
@@ -1410,6 +1425,7 @@ function showTab(tab){
   });
   if(tab === "amigos") renderAmigos();
   if(tab === "noticias") renderNoticias();
+  if(tab === "hoje") fetchWeather(); /* nova chance pro clima real (com trava de 1/min) */
   window.scrollTo(0,0);
 }
 function renderDate(){
@@ -1422,6 +1438,17 @@ function renderDate(){
 /* ================= CLIMA / MOMENTO / OCASIÃO ================= */
 function renderWeather(){
   var m = momentData();
+  if(!WX){
+    /* HONESTIDADE (faxina 'cru'): sem clima real, nada de número
+       inventado — a tela diz que está buscando ou que indisponível. */
+    document.getElementById("weatherIco").textContent = "🌡️";
+    document.getElementById("weatherMain").textContent = WX_FAILED ? t("wx.off") : t("wx.loading");
+    document.getElementById("weatherSub").textContent = "";
+    document.getElementById("weatherTip").textContent = "";
+    document.getElementById("weatherSrc").textContent = "";
+    document.getElementById("curveRow").innerHTML = "";
+    return;
+  }
   document.getElementById("weatherIco").textContent = m.ico;
   document.getElementById("weatherMain").textContent = m.main;
   document.getElementById("weatherSub").textContent = m.sub;
@@ -1871,9 +1898,9 @@ function renderReasons(){
   if(!canLook()){ w.innerHTML = ""; return; }
   var m = momentData();
   var chips = [];
-  if(typeof m.temp === "number" && !isNaN(m.temp))
-    chips.push("🌡 " + tt("why.wx", {t: Math.round(m.temp), label: wcodeInfo(m.code).label}));
-  else if(m.ico) chips.push(m.ico);
+  if(WX && typeof m.temp === "number" && !isNaN(m.temp))
+    chips.push("🌡 " + tt("why.wx", {t: Math.round(m.temp), label: wcodeInfo(m.code, m.isDay).label}));
+  else if(WX && m.ico) chips.push(m.ico);
   chips.push("📍 " + esc(account().city || ""));
   if(ui.brief) chips.push("🗓 " + esc(ui.brief.text));
   else chips.push("🗓 " + t("mom." + ui.momento) + " · " + occLabel(ui.occ));
@@ -2376,7 +2403,7 @@ function saveContaData(){
   if(occs.indexOf(ui.occ) < 0){ ui.occ = occs[0]; }
   save();
   renderConta(); renderOccChips(); renderHoje(); renderStats();
-  if(cityChanged){ WX = null; WX_TRIED = false; renderWeather(); renderHoje(); fetchWeather(); }
+  if(cityChanged){ WX = null; WX_LAST_TRY = 0; WX_FAILED = false; renderWeather(); renderHoje(); fetchWeather(); }
   toast(t("toast.dataSaved"));
 }
 function saveNotes(showToast){
