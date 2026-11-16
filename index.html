@@ -448,7 +448,7 @@ try{
 
     <main class="with-nav">
       <section id="sec-hoje" class="active">
-        <div class="card">
+        <div class="card" id="wxCard">
           <div class="date-line" id="todayDate"></div>
           <div class="weather-top" style="margin-top:10px">
             <div class="weather-ico" id="weatherIco">☀️</div>
@@ -603,7 +603,7 @@ pt:{
  "home.footer":"MYFUKU · protótipo da jornada completa — conta e peças ficam salvos neste aparelho.",
  "nav.hoje":"Hoje","nav.armario":"Armário","nav.mortas":"Mortas","nav.conta":"Conta",
  "mom.agora":"Agora","mom.noite":"Hoje à noite","mom.amanha":"Amanhã",
- "wx.srcReal":"tempo real · Open-Meteo","wx.srcDemo":"previsão demonstrativa","wxc.0n":"céu limpo","wx.off":"Clima indisponível no momento","wx.loading":"Buscando o clima…",
+ "wx.srcReal":"tempo real · Open-Meteo","wx.srcDemo":"previsão demonstrativa","wxc.0n":"céu limpo","wx.off":"Clima indisponível no momento","wx.loading":"Buscando o clima…","wx.retry":"Toque no cartão para tentar de novo",
 "trip.btn":"Vou viajar","trip.hint":"Veja o tempo do destino e o que levar.","trip.title":"Viagem — {c}","trip.cityPh":"Cidade de destino (ex.: Nagano, Hakuba…)","trip.from":"Ida","trip.to":"Volta","trip.save":"Salvar viagem","trip.cancel":"Cancelar","trip.end":"Encerrar viagem","trip.searching":"Buscando…","trip.nocity":"Nenhuma cidade achada.","trip.range":"Sensação entre {a}° e {b}° no período","trip.colder":"{d}° mais frio que {c}","trip.warmer":"{d}° mais quente que {c}","trip.same":"Sensação parecida com {c}","trip.rain":"Tem chuva no período.","trip.far":"A previsão de {c} sai por volta de {d}.","trip.off":"Previsão do destino indisponível agora.","trip.loading":"Buscando a previsão do destino…","trip.look":"No destino","trip.pack":"Levar","trip.covered":"O look de casa já cobre o destino.","trip.need":"Falta casaco pra esse frio no seu armário.","trip.small":"Armário pequeno demais pra montar o look do destino.","trip.pickCity":"Escolha a cidade na lista.",
  "wx.temp":"Temperatura: {t}°","wx.feels":" · sensação: {t}°","wx.rain":" · chuva {p}%","wx.now":"agora",
  "wxc.0":"ensolarado","wxc.2":"parcialmente nublado","wxc.3":"nublado","wxc.45":"neblina","wxc.51":"garoa","wxc.56":"chuva gelada","wxc.61":"chuva","wxc.71":"neve","wxc.80":"pancadas de chuva","wxc.85":"pancadas de neve","wxc.95":"tempestade","wxc.x":"tempo firme",
@@ -772,7 +772,7 @@ ja:{
  "home.footer":"MYFUKU · プロトタイプ — アカウントと服はこの端末に保存されます。",
  "nav.hoje":"今日","nav.armario":"クローゼット","nav.mortas":"眠っている服","nav.conta":"アカウント",
  "mom.agora":"今","mom.noite":"今夜","mom.amanha":"明日",
- "wx.srcReal":"リアルタイム · Open-Meteo","wx.srcDemo":"サンプルの予報","wxc.0n":"晴れた夜空","wx.off":"天気を取得できませんでした","wx.loading":"天気を取得中…",
+ "wx.srcReal":"リアルタイム · Open-Meteo","wx.srcDemo":"サンプルの予報","wxc.0n":"晴れた夜空","wx.off":"天気を取得できませんでした","wx.loading":"天気を取得中…","wx.retry":"カードをタップしてもう一度",
 "trip.btn":"旅行の予定","trip.hint":"行き先の天気と、持っていくもの。","trip.title":"旅行 — {c}","trip.cityPh":"行き先の街（例：長野、白馬…）","trip.from":"出発","trip.to":"帰り","trip.save":"保存する","trip.cancel":"キャンセル","trip.end":"旅行を終了","trip.searching":"検索中…","trip.nocity":"見つかりませんでした。","trip.range":"期間の体感は{a}°〜{b}°","trip.colder":"{c}より{d}°寒い","trip.warmer":"{c}より{d}°暖かい","trip.same":"{c}とほぼ同じ体感","trip.rain":"期間中に雨の日があります。","trip.far":"{c}の予報は{d}ごろ出ます。","trip.off":"行き先の予報を取得できませんでした。","trip.loading":"行き先の予報を取得中…","trip.look":"行き先では","trip.pack":"持っていく","trip.covered":"家の服装で足ります。","trip.need":"その寒さ用のコートがクローゼットにありません。","trip.small":"クローゼットが小さく、行き先の服装を組めません。","trip.pickCity":"リストから街を選んでください。",
  "wx.temp":"気温： {t}°","wx.feels":" · 体感： {t}°","wx.rain":" · 雨 {p}%","wx.now":"いま",
  "wxc.0":"晴れ","wxc.2":"晴れ時々くもり","wxc.3":"くもり","wxc.45":"霧","wxc.51":"霧雨","wxc.56":"冷たい雨","wxc.61":"雨","wxc.71":"雪","wxc.80":"にわか雨","wxc.85":"にわか雪","wxc.95":"雷雨","wxc.x":"晴れ時々くもり",
@@ -941,7 +941,7 @@ en:{
  "home.footer":"MYFUKU · full-journey prototype — account and pieces are saved on this device.",
  "nav.hoje":"Today","nav.armario":"Closet","nav.mortas":"Dead","nav.conta":"Account",
  "mom.agora":"Now","mom.noite":"Tonight","mom.amanha":"Tomorrow",
- "wx.srcReal":"real-time · Open-Meteo","wx.srcDemo":"sample forecast","wxc.0n":"clear night sky","wx.off":"Weather unavailable right now","wx.loading":"Fetching the weather…",
+ "wx.srcReal":"real-time · Open-Meteo","wx.srcDemo":"sample forecast","wxc.0n":"clear night sky","wx.off":"Weather unavailable right now","wx.loading":"Fetching the weather…","wx.retry":"Tap the card to try again",
 "trip.btn":"I'm traveling","trip.hint":"See the destination weather and what to bring.","trip.title":"Trip — {c}","trip.cityPh":"Destination city (e.g. Nagano, Hakuba…)","trip.from":"Departure","trip.to":"Return","trip.save":"Save trip","trip.cancel":"Cancel","trip.end":"End trip","trip.searching":"Searching…","trip.nocity":"No city found.","trip.range":"Feels between {a}° and {b}° during the stay","trip.colder":"{d}° colder than {c}","trip.warmer":"{d}° warmer than {c}","trip.same":"Feels much like {c}","trip.rain":"Rain is expected during the stay.","trip.far":"The forecast for {c} appears around {d}.","trip.off":"Destination forecast unavailable right now.","trip.loading":"Fetching the destination forecast…","trip.look":"At the destination","trip.pack":"Bring","trip.covered":"Your home look already covers the destination.","trip.need":"No coat for that cold in your closet.","trip.small":"Closet too small to build the destination look.","trip.pickCity":"Pick the city from the list.",
  "wx.temp":"Temperature: {t}°","wx.feels":" · feels like: {t}°","wx.rain":" · rain {p}%","wx.now":"now",
  "wxc.0":"sunny","wxc.2":"partly cloudy","wxc.3":"cloudy","wxc.45":"fog","wxc.51":"drizzle","wxc.56":"freezing rain","wxc.61":"rain","wxc.71":"snow","wxc.80":"rain showers","wxc.85":"snow showers","wxc.95":"thunderstorm","wxc.x":"fair",
@@ -1190,6 +1190,38 @@ var CITY_COORDS = {
 var WX = null; /* dados reais por momento; null = clima real indisponível (a UI diz isso, sem inventar número) */
 var WX_LAST_TRY = 0;
 var WX_FAILED = false;
+var WX_RETRY_T = null;
+/* fetch com prazo: sem isto, uma conexão pendurada (rede móvel/CGNAT)
+   deixava o cartão em "buscando…" pra sempre — defeito relatado 2026-11-17. */
+function fetchTO(url, ms){
+  if(typeof AbortController === "function"){
+    var c = new AbortController();
+    var to = setTimeout(function(){ try{ c.abort(); }catch(e){} }, ms || 9000);
+    return fetch(url, { signal:c.signal }).then(function(r){ clearTimeout(to); return r; },
+      function(e){ clearTimeout(to); throw e; });
+  }
+  return fetch(url);
+}
+function wxRetrySoon(){
+  clearTimeout(WX_RETRY_T);
+  WX_RETRY_T = setTimeout(function(){
+    if(!WX && S){ WX_LAST_TRY = 0; fetchWeather(); }
+  }, 30000);
+}
+/* O clima vem pela NOSSA função (projeto Myfuku no Supabase): o telefone
+   dele não alcança o Open-Meteo direto (trava 20–30 s e falha — provado
+   no aparelho em 2026-11-17); o Supabase ele alcança (notícias/IA).
+   Se a função falhar, tenta o caminho direto como segunda chance. */
+var WX_API = "https://jyoajextdueazvlfuzoi.supabase.co/functions/v1/weather";
+function wxFetch(query){
+  return fetchTO(WX_API+"?"+query, 9000).then(function(r){ if(!r.ok) throw new Error("fn"); return r.json(); })
+    .catch(function(){ return fetchTO("https://api.open-meteo.com/v1/forecast?"+query, 9000).then(function(r){ return r.json(); }); });
+}
+function wxGeo(name){
+  var direct = "https://geocoding-api.open-meteo.com/v1/search?count=6&language=pt&format=json&name="+encodeURIComponent(name);
+  return fetchTO(WX_API+"?geo=1&name="+encodeURIComponent(name), 8000).then(function(r){ if(!r.ok) throw new Error("fn"); return r.json(); })
+    .catch(function(){ return fetchTO(direct, 8000).then(function(r){ return r.json(); }); });
+}
 function cityKey(name){
   var k = String(name || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
   return CITY_COORDS[k] ? k : "gyoda";
@@ -1248,12 +1280,12 @@ function fetchWeather(){
   if(typeof fetch !== "function") return;
   var coords = CITY_COORDS[cityKey(account().city)];
   var city = account().city;
-  var url = "https://api.open-meteo.com/v1/forecast?latitude="+coords[0]+"&longitude="+coords[1]
+  var query = "latitude="+coords[0]+"&longitude="+coords[1]
     + "&current=temperature_2m,apparent_temperature,weather_code,is_day"
     + "&hourly=temperature_2m,apparent_temperature,precipitation_probability,weather_code,is_day"
     + "&timezone=Asia%2FTokyo&forecast_days=2";
-  fetch(url).then(function(r){ return r.json(); }).then(function(d){
-    if(!d || !d.current || !d.hourly || !d.hourly.time){ WX_FAILED = true; renderWeather(); return; }
+  wxFetch(query).then(function(d){
+    if(!d || !d.current || !d.hourly || !d.hourly.time){ WX_FAILED = true; renderWeather(); wxRetrySoon(); return; }
     function hAt(dayOffset, hour){
       var dt = new Date(); dt.setDate(dt.getDate()+dayOffset);
       var key = dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0")+"T"+String(hour).padStart(2,"0")+":00";
@@ -1287,9 +1319,10 @@ function fetchWeather(){
     var mt = mk(ht, "look.title.amanha", "wxn.amanha");
     mt.curve = [["9h", tmp(hAt(1,9))],["12h", Math.round(ht.t)+"°"],["18h", tmp(hAt(1,18))]];
     WX = {agora:ma, noite:mn, amanha:mt};
+    clearTimeout(WX_RETRY_T);
     renderWeather(); renderHoje();
     judgeWeatherCheck();
-  }).catch(function(){ WX_FAILED = true; renderWeather(); /* sem rede: a tela declara, sem inventar clima */ });
+  }).catch(function(){ WX_FAILED = true; renderWeather(); wxRetrySoon(); /* sem rede: a tela declara, sem inventar clima */ });
 }
 
 /* ================= VIAGEM (modo viagem, sem a mala) =================
@@ -1316,8 +1349,7 @@ function tripCityInput(){
   box.innerHTML = '<div class="small muted">'+esc(t("trip.searching"))+'</div>';
   clearTimeout(ui._tripT);
   ui._tripT = setTimeout(function(){
-    fetch("https://geocoding-api.open-meteo.com/v1/search?count=6&language=pt&format=json&name="+encodeURIComponent(q))
-      .then(function(r){ return r.json(); }).then(function(d){
+    wxGeo(q).then(function(d){
         ui.tripResults = (d && d.results) || [];
         if(!ui.tripResults.length){ box.innerHTML = '<div class="small muted">'+esc(t("trip.nocity"))+'</div>'; return; }
         box.innerHTML = ui.tripResults.map(function(r, i){
@@ -1363,10 +1395,10 @@ function fetchTripWx(){
   if(start > addDaysStr(todayStr(), 15)){ TRIPWX = { far:addDaysStr(tr.from, -15) }; TRIPWX_SIG = sig; renderTrip(); return; }
   var end = tr.to > addDaysStr(todayStr(), 15) ? addDaysStr(todayStr(), 15) : tr.to;
   function fc(lat, lon, tz){
-    var url = "https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon
+    var query = "latitude="+lat+"&longitude="+lon
       + "&hourly=temperature_2m,apparent_temperature,precipitation_probability,weather_code"
       + "&timezone="+tz+"&start_date="+start+"&end_date="+end;
-    return fetch(url).then(function(r){ return r.json(); });
+    return wxFetch(query);
   }
   var hc = CITY_COORDS[cityKey(account().city)];
   Promise.all([fc(tr.lat, tr.lon, "auto"), fc(hc[0], hc[1], "Asia%2FTokyo")]).then(function(res){
@@ -1593,6 +1625,10 @@ function enterHome(){
   showScreen("home");
   renderHeader(); renderDate(); renderWeather(); renderTrip(); renderOccChips(); renderHoje(); renderCloset(); renderDead(); renderConta(); renderStats(); renderAmigos(); renderNotifs(); syncBell();
   fetchWeather(); fetchTripWx();
+  var wxc = document.getElementById("wxCard");
+  if(wxc && !wxc._bound){ wxc._bound = 1; wxc.addEventListener("click", function(){
+    if(!WX){ WX_LAST_TRY = 0; WX_FAILED = false; renderWeather(); fetchWeather(); }
+  }); }
   showTab("hoje");
 }
 function renderHeader(){
@@ -1627,7 +1663,7 @@ function renderWeather(){
        inventado — a tela diz que está buscando ou que indisponível. */
     document.getElementById("weatherIco").textContent = "🌡️";
     document.getElementById("weatherMain").textContent = WX_FAILED ? t("wx.off") : t("wx.loading");
-    document.getElementById("weatherSub").textContent = "";
+    document.getElementById("weatherSub").textContent = WX_FAILED ? t("wx.retry") : "";
     document.getElementById("weatherTip").textContent = "";
     document.getElementById("weatherSrc").textContent = "";
     document.getElementById("curveRow").innerHTML = "";
