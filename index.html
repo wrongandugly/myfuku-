@@ -598,7 +598,7 @@ pt:{
  "nav.hoje":"Hoje","nav.armario":"Armário","nav.mortas":"Mortas","nav.conta":"Conta",
  "mom.agora":"Agora","mom.noite":"Hoje à noite","mom.amanha":"Amanhã",
  "wx.srcReal":"tempo real · Open-Meteo","wx.srcDemo":"previsão demonstrativa","wxc.0n":"céu limpo","wx.off":"Clima indisponível no momento","wx.loading":"Buscando o clima…",
- "wx.temp":"Temperatura: {t}°","wx.rain":" · chuva {p}%","wx.now":"agora",
+ "wx.temp":"Temperatura: {t}°","wx.feels":" · sensação: {t}°","wx.rain":" · chuva {p}%","wx.now":"agora",
  "wxc.0":"ensolarado","wxc.2":"parcialmente nublado","wxc.3":"nublado","wxc.45":"neblina","wxc.51":"garoa","wxc.56":"chuva gelada","wxc.61":"chuva","wxc.71":"neve","wxc.80":"pancadas de chuva","wxc.85":"pancadas de neve","wxc.95":"tempestade","wxc.x":"tempo firme",
  "wxn.agora":"agora","wxn.noite":"à noite","wxn.amanha":"amanhã",
  "tip.rain":"Chance de chuva de {p}%: leva guarda-chuva e prefira peças que sequem rápido. ☂️",
@@ -766,7 +766,7 @@ ja:{
  "nav.hoje":"今日","nav.armario":"クローゼット","nav.mortas":"眠っている服","nav.conta":"アカウント",
  "mom.agora":"今","mom.noite":"今夜","mom.amanha":"明日",
  "wx.srcReal":"リアルタイム · Open-Meteo","wx.srcDemo":"サンプルの予報","wxc.0n":"晴れた夜空","wx.off":"天気を取得できませんでした","wx.loading":"天気を取得中…",
- "wx.temp":"気温： {t}°","wx.rain":" · 雨 {p}%","wx.now":"いま",
+ "wx.temp":"気温： {t}°","wx.feels":" · 体感： {t}°","wx.rain":" · 雨 {p}%","wx.now":"いま",
  "wxc.0":"晴れ","wxc.2":"晴れ時々くもり","wxc.3":"くもり","wxc.45":"霧","wxc.51":"霧雨","wxc.56":"冷たい雨","wxc.61":"雨","wxc.71":"雪","wxc.80":"にわか雨","wxc.85":"にわか雪","wxc.95":"雷雨","wxc.x":"晴れ時々くもり",
  "wxn.agora":"いま","wxn.noite":"夜","wxn.amanha":"明日",
  "tip.rain":"雨の確率 {p}%。傘を持って、乾きやすい服を選びましょう。☂️",
@@ -934,7 +934,7 @@ en:{
  "nav.hoje":"Today","nav.armario":"Closet","nav.mortas":"Idle","nav.conta":"Account",
  "mom.agora":"Now","mom.noite":"Tonight","mom.amanha":"Tomorrow",
  "wx.srcReal":"real-time · Open-Meteo","wx.srcDemo":"sample forecast","wxc.0n":"clear night sky","wx.off":"Weather unavailable right now","wx.loading":"Fetching the weather…",
- "wx.temp":"Temperature: {t}°","wx.rain":" · rain {p}%","wx.now":"now",
+ "wx.temp":"Temperature: {t}°","wx.feels":" · feels like: {t}°","wx.rain":" · rain {p}%","wx.now":"now",
  "wxc.0":"sunny","wxc.2":"partly cloudy","wxc.3":"cloudy","wxc.45":"fog","wxc.51":"drizzle","wxc.56":"freezing rain","wxc.61":"rain","wxc.71":"snow","wxc.80":"rain showers","wxc.85":"snow showers","wxc.95":"thunderstorm","wxc.x":"fair",
  "wxn.agora":"now","wxn.noite":"tonight","wxn.amanha":"tomorrow",
  "tip.rain":"{p}% chance of rain: take an umbrella and prefer pieces that dry fast. ☂️",
@@ -1240,8 +1240,8 @@ function fetchWeather(){
   var coords = CITY_COORDS[cityKey(account().city)];
   var city = account().city;
   var url = "https://api.open-meteo.com/v1/forecast?latitude="+coords[0]+"&longitude="+coords[1]
-    + "&current=temperature_2m,weather_code,is_day"
-    + "&hourly=temperature_2m,precipitation_probability,weather_code,is_day"
+    + "&current=temperature_2m,apparent_temperature,weather_code,is_day"
+    + "&hourly=temperature_2m,apparent_temperature,precipitation_probability,weather_code,is_day"
     + "&timezone=Asia%2FTokyo&forecast_days=2";
   fetch(url).then(function(r){ return r.json(); }).then(function(d){
     if(!d || !d.current || !d.hourly || !d.hourly.time){ WX_FAILED = true; renderWeather(); return; }
@@ -1250,17 +1250,23 @@ function fetchWeather(){
       var key = dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0")+"T"+String(hour).padStart(2,"0")+":00";
       var i = d.hourly.time.indexOf(key);
       if(i<0) return null;
-      return { t:d.hourly.temperature_2m[i], code:d.hourly.weather_code[i], isDay:(d.hourly.is_day ? d.hourly.is_day[i] : 1),
+      return { t:d.hourly.temperature_2m[i], fa:(d.hourly.apparent_temperature ? d.hourly.apparent_temperature[i] : d.hourly.temperature_2m[i]), code:d.hourly.weather_code[i], isDay:(d.hourly.is_day ? d.hourly.is_day[i] : 1),
                pop:(d.hourly.precipitation_probability ? d.hourly.precipitation_probability[i] : null) };
     }
     function popTxt(pop){ return (pop===null || pop===undefined) ? "" : tt("wx.rain", {p:pop}); }
     function tmp(h){ return h ? Math.round(h.t)+"°" : "—"; }
     function mk(h, titleKey, whenKey){
-      var info = wcodeInfo(h.code, h.isDay), so = wxSeasonOuter(h.t);
-      return { ico:info.ico, temp:Math.round(h.t), code:h.code, isDay:h.isDay, main:city+" · "+info.label+" "+t(whenKey), sub:tt("wx.temp", {t:Math.round(h.t)})+popTxt(h.pop),
-               seasons:so.seasons, outer:so.outer, title:t(titleKey), curve:[], tip:wxTip(h.t, h.pop, so.outer) };
+      /* A decisão de roupa usa a SENSAÇÃO térmica (apparent_temperature:
+         já embute vento e umidade) — é o frio/calor que o corpo sente.
+         A tela mostra a temperatura real e, quando a sensação difere
+         2° ou mais, mostra a sensação ao lado, sem esconder nada. */
+      var fa = (h.fa!==null && h.fa!==undefined) ? h.fa : h.t;
+      var info = wcodeInfo(h.code, h.isDay), so = wxSeasonOuter(fa);
+      var sub = tt("wx.temp", {t:Math.round(h.t)}) + (Math.abs(fa - h.t) >= 2 ? tt("wx.feels", {t:Math.round(fa)}) : "") + popTxt(h.pop);
+      return { ico:info.ico, temp:Math.round(h.t), feels:Math.round(fa), code:h.code, isDay:h.isDay, main:city+" · "+info.label+" "+t(whenKey), sub:sub,
+               seasons:so.seasons, outer:so.outer, title:t(titleKey), curve:[], tip:wxTip(fa, h.pop, so.outer) };
     }
-    var now = { t:d.current.temperature_2m, code:d.current.weather_code, isDay:d.current.is_day, pop:null };
+    var now = { t:d.current.temperature_2m, fa:(d.current.apparent_temperature!==null && d.current.apparent_temperature!==undefined) ? d.current.apparent_temperature : d.current.temperature_2m, code:d.current.weather_code, isDay:d.current.is_day, pop:null };
     var ch = hAt(0, new Date().getHours());
     if(ch && ch.pop!==null && ch.pop!==undefined) now.pop = ch.pop;
     var ma = mk(now, "look.title.agora", "wxn.agora");
