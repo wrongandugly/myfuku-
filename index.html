@@ -208,6 +208,8 @@ try{
   .photo-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0}
   .badge.sale{background:#fde9c8;color:#8a5f10}
   .weather-src{font-size:var(--fs-11);color:var(--muted);margin-top:8px;text-align:right}
+  .trip-piece{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin:2px 4px 2px 0;font-size:13px;background:#fff}
+  .trip-city{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-top:6px;font-size:14px;cursor:pointer}
   .mkt-list{display:flex;flex-direction:column;gap:8px}
   .mkt-opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff;cursor:pointer;font-family:inherit}
   .mkt-opt input{margin-top:3px}
@@ -458,6 +460,8 @@ try{
           <div class="weather-src" id="weatherSrc">previsão demonstrativa</div>
         </div>
 
+        <div id="tripArea"></div>
+
         <div id="reasonsRow"></div>
 
         <div class="chips" id="momentChips">
@@ -598,6 +602,7 @@ pt:{
  "nav.hoje":"Hoje","nav.armario":"Armário","nav.mortas":"Mortas","nav.conta":"Conta",
  "mom.agora":"Agora","mom.noite":"Hoje à noite","mom.amanha":"Amanhã",
  "wx.srcReal":"tempo real · Open-Meteo","wx.srcDemo":"previsão demonstrativa","wxc.0n":"céu limpo","wx.off":"Clima indisponível no momento","wx.loading":"Buscando o clima…",
+"trip.btn":"Vou viajar","trip.hint":"Veja o tempo do destino e o que levar.","trip.title":"Viagem — {c}","trip.cityPh":"Cidade de destino (ex.: Nagano, Hakuba…)","trip.from":"Ida","trip.to":"Volta","trip.save":"Salvar viagem","trip.cancel":"Cancelar","trip.end":"Encerrar viagem","trip.searching":"Buscando…","trip.nocity":"Nenhuma cidade achada.","trip.range":"Sensação entre {a}° e {b}° no período","trip.colder":"{d}° mais frio que {c}","trip.warmer":"{d}° mais quente que {c}","trip.same":"Sensação parecida com {c}","trip.rain":"Tem chuva no período.","trip.far":"A previsão de {c} sai por volta de {d}.","trip.off":"Previsão do destino indisponível agora.","trip.loading":"Buscando a previsão do destino…","trip.look":"No destino","trip.pack":"Levar","trip.covered":"O look de casa já cobre o destino.","trip.need":"Falta casaco pra esse frio no seu armário.","trip.small":"Armário pequeno demais pra montar o look do destino.","trip.pickCity":"Escolha a cidade na lista.",
  "wx.temp":"Temperatura: {t}°","wx.feels":" · sensação: {t}°","wx.rain":" · chuva {p}%","wx.now":"agora",
  "wxc.0":"ensolarado","wxc.2":"parcialmente nublado","wxc.3":"nublado","wxc.45":"neblina","wxc.51":"garoa","wxc.56":"chuva gelada","wxc.61":"chuva","wxc.71":"neve","wxc.80":"pancadas de chuva","wxc.85":"pancadas de neve","wxc.95":"tempestade","wxc.x":"tempo firme",
  "wxn.agora":"agora","wxn.noite":"à noite","wxn.amanha":"amanhã",
@@ -766,6 +771,7 @@ ja:{
  "nav.hoje":"今日","nav.armario":"クローゼット","nav.mortas":"眠っている服","nav.conta":"アカウント",
  "mom.agora":"今","mom.noite":"今夜","mom.amanha":"明日",
  "wx.srcReal":"リアルタイム · Open-Meteo","wx.srcDemo":"サンプルの予報","wxc.0n":"晴れた夜空","wx.off":"天気を取得できませんでした","wx.loading":"天気を取得中…",
+"trip.btn":"旅行の予定","trip.hint":"行き先の天気と、持っていくもの。","trip.title":"旅行 — {c}","trip.cityPh":"行き先の街（例：長野、白馬…）","trip.from":"出発","trip.to":"帰り","trip.save":"保存する","trip.cancel":"キャンセル","trip.end":"旅行を終了","trip.searching":"検索中…","trip.nocity":"見つかりませんでした。","trip.range":"期間の体感は{a}°〜{b}°","trip.colder":"{c}より{d}°寒い","trip.warmer":"{c}より{d}°暖かい","trip.same":"{c}とほぼ同じ体感","trip.rain":"期間中に雨の日があります。","trip.far":"{c}の予報は{d}ごろ出ます。","trip.off":"行き先の予報を取得できませんでした。","trip.loading":"行き先の予報を取得中…","trip.look":"行き先では","trip.pack":"持っていく","trip.covered":"家の服装で足ります。","trip.need":"その寒さ用のコートがクローゼットにありません。","trip.small":"クローゼットが小さく、行き先の服装を組めません。","trip.pickCity":"リストから街を選んでください。",
  "wx.temp":"気温： {t}°","wx.feels":" · 体感： {t}°","wx.rain":" · 雨 {p}%","wx.now":"いま",
  "wxc.0":"晴れ","wxc.2":"晴れ時々くもり","wxc.3":"くもり","wxc.45":"霧","wxc.51":"霧雨","wxc.56":"冷たい雨","wxc.61":"雨","wxc.71":"雪","wxc.80":"にわか雨","wxc.85":"にわか雪","wxc.95":"雷雨","wxc.x":"晴れ時々くもり",
  "wxn.agora":"いま","wxn.noite":"夜","wxn.amanha":"明日",
@@ -934,6 +940,7 @@ en:{
  "nav.hoje":"Today","nav.armario":"Closet","nav.mortas":"Idle","nav.conta":"Account",
  "mom.agora":"Now","mom.noite":"Tonight","mom.amanha":"Tomorrow",
  "wx.srcReal":"real-time · Open-Meteo","wx.srcDemo":"sample forecast","wxc.0n":"clear night sky","wx.off":"Weather unavailable right now","wx.loading":"Fetching the weather…",
+"trip.btn":"I'm traveling","trip.hint":"See the destination weather and what to bring.","trip.title":"Trip — {c}","trip.cityPh":"Destination city (e.g. Nagano, Hakuba…)","trip.from":"Departure","trip.to":"Return","trip.save":"Save trip","trip.cancel":"Cancel","trip.end":"End trip","trip.searching":"Searching…","trip.nocity":"No city found.","trip.range":"Feels between {a}° and {b}° during the stay","trip.colder":"{d}° colder than {c}","trip.warmer":"{d}° warmer than {c}","trip.same":"Feels much like {c}","trip.rain":"Rain is expected during the stay.","trip.far":"The forecast for {c} appears around {d}.","trip.off":"Destination forecast unavailable right now.","trip.loading":"Fetching the destination forecast…","trip.look":"At the destination","trip.pack":"Bring","trip.covered":"Your home look already covers the destination.","trip.need":"No coat for that cold in your closet.","trip.small":"Closet too small to build the destination look.","trip.pickCity":"Pick the city from the list.",
  "wx.temp":"Temperature: {t}°","wx.feels":" · feels like: {t}°","wx.rain":" · rain {p}%","wx.now":"now",
  "wxc.0":"sunny","wxc.2":"partly cloudy","wxc.3":"cloudy","wxc.45":"fog","wxc.51":"drizzle","wxc.56":"freezing rain","wxc.61":"rain","wxc.71":"snow","wxc.80":"rain showers","wxc.85":"snow showers","wxc.95":"thunderstorm","wxc.x":"fair",
  "wxn.agora":"now","wxn.noite":"tonight","wxn.amanha":"tomorrow",
@@ -1283,6 +1290,170 @@ function fetchWeather(){
   }).catch(function(){ WX_FAILED = true; renderWeather(); /* sem rede: a tela declara, sem inventar clima */ });
 }
 
+/* ================= VIAGEM (modo viagem, sem a mala) =================
+   O usuário marca destino + ida/volta; o app busca a previsão DO DESTINO
+   (geocoding + forecast do Open-Meteo, sem chave), compara com a de casa
+   pela SENSAÇÃO térmica e monta: look do destino + o que levar (peças do
+   armário que o look de casa não cobre). Viagem vencida se apaga sozinha.
+   Previsão só existe ~16 dias à frente: viagem longe mostra QUANDO a
+   previsão sai — número nenhum é inventado. A função MALA completa é
+   futura (decisão dele, 2026-11-16); aqui é só a lista simples "levar". */
+var TRIPWX = null; /* {dest:{minF,maxF,code,rain}, home:{minF,maxF}} | {far:avail} | {err:1} */
+var TRIPWX_SIG = "";
+function todayStr(){ var d = new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function addDaysStr(iso, n){ var p = iso.split("-"); var d = new Date(+p[0], +p[1]-1, +p[2]); d.setDate(d.getDate()+n); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function fmtD(iso){ var p = String(iso||"").split("-"); return p.length===3 ? p[2]+"/"+p[1] : iso; }
+function tripSweep(){ if(S && S.trip && todayStr() > S.trip.to){ S.trip = null; TRIPWX = null; TRIPWX_SIG = ""; save(); } }
+function tripActive(){ return !!(S && S.trip && todayStr() <= S.trip.to); }
+function openTripForm(){ ui.tripForm = true; ui.tripPick = null; ui.tripResults = []; renderTrip(); }
+function closeTripForm(){ ui.tripForm = false; renderTrip(); }
+function tripCityInput(){
+  var q = document.getElementById("tripCityQ").value.trim();
+  var box = document.getElementById("tripResults");
+  if(q.length < 2){ box.innerHTML = ""; return; }
+  box.innerHTML = '<div class="small muted">'+esc(t("trip.searching"))+'</div>';
+  clearTimeout(ui._tripT);
+  ui._tripT = setTimeout(function(){
+    fetch("https://geocoding-api.open-meteo.com/v1/search?count=6&language=pt&format=json&name="+encodeURIComponent(q))
+      .then(function(r){ return r.json(); }).then(function(d){
+        ui.tripResults = (d && d.results) || [];
+        if(!ui.tripResults.length){ box.innerHTML = '<div class="small muted">'+esc(t("trip.nocity"))+'</div>'; return; }
+        box.innerHTML = ui.tripResults.map(function(r, i){
+          var sub = [r.admin1, r.country].filter(Boolean).join(", ");
+          return '<button type="button" class="trip-city" onclick="pickTripCity('+i+')"><b>'+esc(r.name)+'</b>'+(sub ? ' <span class="muted">· '+esc(sub)+'</span>' : '')+'</button>';
+        }).join("");
+      }).catch(function(){ box.innerHTML = '<div class="small muted">'+esc(t("trip.nocity"))+'</div>'; });
+  }, 350);
+}
+function pickTripCity(i){
+  var r = (ui.tripResults || [])[i]; if(!r) return;
+  ui.tripPick = { label:r.name, admin:r.admin1 || "", country:r.country || "", lat:r.latitude, lon:r.longitude };
+  document.getElementById("tripCityQ").value = r.name;
+  document.getElementById("tripResults").innerHTML = '<div class="small" style="color:var(--gold,#a5812f);font-weight:700">'+esc(r.name)+' ✓</div>';
+}
+function saveTrip(){
+  if(!ui.tripPick){ toast(t("trip.pickCity")); return; }
+  var from = document.getElementById("tripFrom").value || todayStr();
+  var to = document.getElementById("tripTo").value || from;
+  if(to < from) to = from;
+  if(from < todayStr()) from = todayStr();
+  if(to < from) to = from;
+  S.trip = { label:ui.tripPick.label, admin:ui.tripPick.admin, country:ui.tripPick.country, lat:ui.tripPick.lat, lon:ui.tripPick.lon, from:from, to:to };
+  ui.tripForm = false; TRIPWX = null; TRIPWX_SIG = "";
+  save(); renderTrip(); fetchTripWx();
+}
+function endTrip(){ S.trip = null; TRIPWX = null; TRIPWX_SIG = ""; save(); renderTrip(); }
+function tripSummary(d){
+  var h = d.hourly, n = h.time.length, minF = 1e9, maxF = -1e9, codeAtMax = 0, rain = false;
+  for(var i = 0; i < n; i++){
+    var fa = (h.apparent_temperature ? h.apparent_temperature[i] : h.temperature_2m[i]);
+    if(fa < minF) minF = fa;
+    if(fa > maxF){ maxF = fa; codeAtMax = h.weather_code[i]; }
+    if(h.precipitation_probability && h.precipitation_probability[i] >= 50) rain = true;
+  }
+  return { minF:Math.round(minF), maxF:Math.round(maxF), code:codeAtMax, rain:rain };
+}
+function fetchTripWx(){
+  if(!tripActive() || typeof fetch !== "function") return;
+  var tr = S.trip, sig = tr.lat+","+tr.lon+"|"+tr.from+"|"+tr.to;
+  if(TRIPWX && TRIPWX_SIG === sig) return;
+  var start = tr.from < todayStr() ? todayStr() : tr.from;
+  if(start > addDaysStr(todayStr(), 15)){ TRIPWX = { far:addDaysStr(tr.from, -15) }; TRIPWX_SIG = sig; renderTrip(); return; }
+  var end = tr.to > addDaysStr(todayStr(), 15) ? addDaysStr(todayStr(), 15) : tr.to;
+  function fc(lat, lon, tz){
+    var url = "https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon
+      + "&hourly=temperature_2m,apparent_temperature,precipitation_probability,weather_code"
+      + "&timezone="+tz+"&start_date="+start+"&end_date="+end;
+    return fetch(url).then(function(r){ return r.json(); });
+  }
+  var hc = CITY_COORDS[cityKey(account().city)];
+  Promise.all([fc(tr.lat, tr.lon, "auto"), fc(hc[0], hc[1], "Asia%2FTokyo")]).then(function(res){
+    if(!res[0] || !res[0].hourly || !res[0].hourly.time || !res[0].hourly.time.length) throw new Error("vazio");
+    if(!res[1] || !res[1].hourly || !res[1].hourly.time || !res[1].hourly.time.length) throw new Error("vazio");
+    TRIPWX = { dest:tripSummary(res[0]), home:tripSummary(res[1]) };
+    TRIPWX_SIG = sig; renderTrip();
+  }).catch(function(){ TRIPWX = { err:1 }; TRIPWX_SIG = sig; renderTrip(); });
+}
+function destSeasons(){
+  var a = wxSeasonOuter(TRIPWX.dest.minF), b = wxSeasonOuter(TRIPWX.dest.maxF), out = [];
+  a.seasons.concat(b.seasons).forEach(function(s){ if(out.indexOf(s) < 0) out.push(s); });
+  return { seasons:out, outerNeeded:a.outer };
+}
+function destPool(type, seasons){
+  return pieces().filter(function(p){
+    return p.type===type && !p.forSale && p.occ.indexOf(ui.occ) >= 0 && p.seasons.some(function(s){ return seasons.indexOf(s) >= 0; });
+  }).sort(function(a, b){ return poolScore(b) - poolScore(a); });
+}
+function destLook(seasons, outerNeeded){
+  var look = [], top = destPool("top", seasons)[0];
+  if(outerNeeded){ var o = destPool("outer", seasons)[0]; if(o) look.push(o); }
+  if(top) look.push(top);
+  if(top && !top.onepiece){ var b = destPool("bottom", seasons)[0]; if(b) look.push(b); }
+  var sh = destPool("shoes", seasons)[0]; if(sh) look.push(sh);
+  return look;
+}
+function renderTrip(){
+  var el = document.getElementById("tripArea"); if(!el || !S) return;
+  tripSweep();
+  if(ui.tripForm){
+    var td = todayStr();
+    el.innerHTML = '<div class="card">'
+      + '<div class="card-title">'+esc(t("trip.btn"))+'</div>'
+      + '<input id="tripCityQ" type="text" maxlength="40" placeholder="'+esc(t("trip.cityPh"))+'" oninput="tripCityInput()" style="width:100%;margin-top:8px">'
+      + '<div id="tripResults" style="margin-top:6px"></div>'
+      + '<div style="display:flex;gap:10px;margin-top:10px">'
+      +   '<label class="small" style="flex:1">'+esc(t("trip.from"))+'<br><input id="tripFrom" type="date" value="'+td+'" style="width:100%"></label>'
+      +   '<label class="small" style="flex:1">'+esc(t("trip.to"))+'<br><input id="tripTo" type="date" value="'+td+'" style="width:100%"></label>'
+      + '</div>'
+      + '<div style="display:flex;gap:10px;margin-top:12px">'
+      +   '<button type="button" class="btn-gold" style="flex:1" onclick="saveTrip()">'+esc(t("trip.save"))+'</button>'
+      +   '<button type="button" class="btn-ghost" style="flex:1" onclick="closeTripForm()">'+esc(t("trip.cancel"))+'</button>'
+      + '</div></div>';
+    return;
+  }
+  if(!tripActive()){
+    el.innerHTML = '<div class="card" style="display:flex;align-items:center;gap:12px">'
+      + '<div style="flex:1"><b>'+esc(t("trip.btn"))+'</b><div class="small muted">'+esc(t("trip.hint"))+'</div></div>'
+      + '<button type="button" class="btn-ghost" onclick="openTripForm()">＋</button></div>';
+    return;
+  }
+  var tr = S.trip, head = '<div class="card"><div class="card-title">'+esc(tt("trip.title", {c:tr.label}))+'</div>'
+    + '<div class="small muted">'+fmtD(tr.from)+' → '+fmtD(tr.to)+'</div>';
+  var foot = '<button type="button" class="btn-ghost" style="margin-top:10px" onclick="endTrip()">'+esc(t("trip.end"))+'</button></div>';
+  if(!TRIPWX){ el.innerHTML = head + '<div class="small muted" style="margin-top:8px">'+esc(t("trip.loading"))+'</div>' + foot; return; }
+  if(TRIPWX.far){ el.innerHTML = head + '<div class="small" style="margin-top:8px">'+esc(tt("trip.far", {c:tr.label, d:fmtD(TRIPWX.far)}))+'</div>' + foot; return; }
+  if(TRIPWX.err){ el.innerHTML = head + '<div class="small muted" style="margin-top:8px">'+esc(t("trip.off"))+'</div>' + foot; return; }
+  var d = TRIPWX.dest, info = wcodeInfo(d.code, 1);
+  var delta = d.maxF - TRIPWX.home.maxF, dTxt;
+  if(delta <= -2) dTxt = tt("trip.colder", {d:Math.abs(delta), c:account().city});
+  else if(delta >= 2) dTxt = tt("trip.warmer", {d:delta, c:account().city});
+  else dTxt = tt("trip.same", {c:account().city});
+  var html = head
+    + '<div class="weather-top" style="margin-top:8px"><div class="weather-ico">'+info.ico+'</div><div>'
+    + '<div class="weather-main">'+esc(info.label)+'</div>'
+    + '<div class="weather-sub">'+esc(tt("trip.range", {a:d.minF, b:d.maxF}))+'</div></div></div>'
+    + '<div style="font-weight:700;margin-top:6px">'+esc(dTxt)+'</div>'
+    + (d.rain ? '<div class="small" style="margin-top:2px">'+esc(t("trip.rain"))+'</div>' : '');
+  var ds = destSeasons(), look = destLook(ds.seasons, ds.outerNeeded);
+  if(look.length >= 2){
+    html += '<div class="small muted" style="margin-top:10px">'+esc(t("trip.look"))+'</div>'
+      + '<div>'+look.map(function(p){ return '<span class="trip-piece">'+esc(p.name)+'</span>'; }).join("")+'</div>';
+    var homeIds = (ui.currentLook || []).map(function(p){ return p.id; });
+    var bring = look.filter(function(p){ return homeIds.indexOf(p.id) < 0; });
+    if(bring.length){
+      html += '<div class="small muted" style="margin-top:8px">'+esc(t("trip.pack"))+'</div>'
+        + '<div>'+bring.map(function(p){ return '<span class="trip-piece">'+esc(p.name)+'</span>'; }).join("")+'</div>';
+    } else {
+      html += '<div class="small" style="margin-top:8px">'+esc(t("trip.covered"))+'</div>';
+    }
+    if(ds.outerNeeded && !destPool("outer", ds.seasons).length)
+      html += '<div class="small" style="margin-top:6px;color:#b3261e">'+esc(t("trip.need"))+'</div>';
+  } else {
+    html += '<div class="small muted" style="margin-top:10px">'+esc(t("trip.small"))+'</div>';
+  }
+  el.innerHTML = html + foot;
+}
+
 /* ================= ÍCONES ================= */
 function iconSVG(kind, color){
   var s = 'fill="'+color+'" stroke="#23201b" stroke-width="3" stroke-linejoin="round"';
@@ -1418,8 +1589,8 @@ function enterHome(){
   ensureIdentity();
   if(!ui.occ || account().occasions.indexOf(ui.occ)<0) ui.occ = account().occasions[0];
   showScreen("home");
-  renderHeader(); renderDate(); renderWeather(); renderOccChips(); renderHoje(); renderCloset(); renderDead(); renderConta(); renderStats(); renderAmigos(); renderNotifs(); syncBell();
-  fetchWeather();
+  renderHeader(); renderDate(); renderWeather(); renderTrip(); renderOccChips(); renderHoje(); renderCloset(); renderDead(); renderConta(); renderStats(); renderAmigos(); renderNotifs(); syncBell();
+  fetchWeather(); fetchTripWx();
   showTab("hoje");
 }
 function renderHeader(){
