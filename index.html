@@ -1191,6 +1191,21 @@ var WX = null; /* dados reais por momento; null = clima real indisponível (a UI
 var WX_LAST_TRY = 0;
 var WX_FAILED = false;
 var WX_RETRY_T = null;
+var WX_STALE = false; /* WX veio do cache (última leitura real), não de agora */
+var WX_AT = 0;        /* quando a leitura atual foi buscada (ms) */
+function wxSaveCache(){
+  try{ localStorage.setItem("myfuku-wx-v1", JSON.stringify({ at:WX_AT, wx:WX })); }catch(e){}
+}
+function wxLoadCache(){
+  if(WX) return;
+  try{
+    var c = JSON.parse(localStorage.getItem("myfuku-wx-v1") || "null");
+    if(c && c.wx && c.at && (Date.now() - c.at) < 3*3600*1000
+       && new Date(c.at).getDate() === new Date().getDate()){
+      WX = c.wx; WX_AT = c.at; WX_STALE = true;
+    }
+  }catch(e){}
+}
 /* fetch com prazo: sem isto, uma conexão pendurada (rede móvel/CGNAT)
    deixava o cartão em "buscando…" pra sempre — defeito relatado 2026-11-17. */
 function fetchTO(url, ms){
@@ -1214,13 +1229,18 @@ function wxRetrySoon(){
    Se a função falhar, tenta o caminho direto como segunda chance. */
 var WX_API = "https://jyoajextdueazvlfuzoi.supabase.co/functions/v1/weather";
 function wxFetch(query){
-  return fetchTO(WX_API+"?"+query, 9000).then(function(r){ if(!r.ok) throw new Error("fn"); return r.json(); })
-    .catch(function(){ return fetchTO("https://api.open-meteo.com/v1/forecast?"+query, 9000).then(function(r){ return r.json(); }); });
+  var fn = WX_API+"?"+query, direct = "https://api.open-meteo.com/v1/forecast?"+query;
+  function attempt(u){ return fetchTO(u, 6000).then(function(r){ if(!r.ok) throw new Error("http"); return r.json(); }); }
+  /* A rede dele é INTERMITENTE (provado 2026-11-17: o mesmo endereço ora
+     trava 25 s, ora responde na hora). Tentativa única é loteria: são 4,
+     alternando função/direto, com prazo curto — cada uma é um dado novo. */
+  return attempt(fn).catch(function(){ return attempt(direct); })
+    .catch(function(){ return attempt(fn); }).catch(function(){ return attempt(direct); });
 }
 function wxGeo(name){
   var direct = "https://geocoding-api.open-meteo.com/v1/search?count=6&language=pt&format=json&name="+encodeURIComponent(name);
-  return fetchTO(WX_API+"?geo=1&name="+encodeURIComponent(name), 8000).then(function(r){ if(!r.ok) throw new Error("fn"); return r.json(); })
-    .catch(function(){ return fetchTO(direct, 8000).then(function(r){ return r.json(); }); });
+  return fetchTO(WX_API+"?geo=1&name="+encodeURIComponent(name), 6000).then(function(r){ if(!r.ok) throw new Error("fn"); return r.json(); })
+    .catch(function(){ return fetchTO(direct, 6000).then(function(r){ return r.json(); }); });
 }
 function cityKey(name){
   var k = String(name || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
@@ -1272,7 +1292,7 @@ function momentData(){
   return out;
 }
 function fetchWeather(){
-  if(!S || WX) return;
+  if(!S || (WX && !WX_STALE)) return;
   var nowMs = Date.now();
   if(WX_LAST_TRY && nowMs - WX_LAST_TRY < 60000) return; /* no máx. 1 tentativa/min */
   WX_LAST_TRY = nowMs;
@@ -1319,6 +1339,7 @@ function fetchWeather(){
     var mt = mk(ht, "look.title.amanha", "wxn.amanha");
     mt.curve = [["9h", tmp(hAt(1,9))],["12h", Math.round(ht.t)+"°"],["18h", tmp(hAt(1,18))]];
     WX = {agora:ma, noite:mn, amanha:mt};
+    WX_AT = Date.now(); WX_STALE = false; wxSaveCache();
     clearTimeout(WX_RETRY_T);
     renderWeather(); renderHoje();
     judgeWeatherCheck();
@@ -1623,6 +1644,7 @@ function enterHome(){
   ensureIdentity();
   if(!ui.occ || account().occasions.indexOf(ui.occ)<0) ui.occ = account().occasions[0];
   showScreen("home");
+  wxLoadCache();
   renderHeader(); renderDate(); renderWeather(); renderTrip(); renderOccChips(); renderHoje(); renderCloset(); renderDead(); renderConta(); renderStats(); renderAmigos(); renderNotifs(); syncBell();
   fetchWeather(); fetchTripWx();
   var wxc = document.getElementById("wxCard");
@@ -1673,7 +1695,9 @@ function renderWeather(){
   document.getElementById("weatherMain").textContent = m.main;
   document.getElementById("weatherSub").textContent = m.sub;
   document.getElementById("weatherTip").textContent = m.tip;
-  document.getElementById("weatherSrc").textContent = WX ? t("wx.srcReal") : t("wx.srcDemo");
+  document.getElementById("weatherSrc").textContent = WX_STALE && WX_AT
+    ? t("wx.srcReal") + " · " + String(new Date(WX_AT).getHours()).padStart(2,"0") + ":" + String(new Date(WX_AT).getMinutes()).padStart(2,"0")
+    : (WX ? t("wx.srcReal") : t("wx.srcDemo"));
   document.getElementById("curveRow").innerHTML = m.curve.map(function(c){
     return "<div><span>"+c[0]+"</span><b>"+c[1]+"</b></div>";
   }).join("");
