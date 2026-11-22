@@ -3602,11 +3602,15 @@ function newsImgErr(img){
 }
 function newsCardHTML(it, i){
   var sig = trendSignalForText(it.title);
-  var media = '<div class="news-media"><div class="news-ph"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:34px;height:34px;opacity:.45"><path d="M12 3.5a1.8 1.8 0 1 1 1.8 1.8c-.6.25-.8.7-.8 1.4v.6"/><path d="M12 7.3L3.6 14.8a1.6 1.6 0 0 0 1 2.7h14.8a1.6 1.6 0 0 0 1-2.7L12 7.3z"/></svg></div>'
-    + (it.img ? '<img class="news-img" src="'+esc(newsImgSrc(it.img))+'" data-orig="'+esc(it.img)+'" alt=""'
-        + (i === 0 ? ' fetchpriority="high"' : (i >= 4 ? ' loading="lazy"' : ''))
-        + ' onload="this.classList.add(\'on\')" onerror="newsImgErr(this)">' : "")
-    + '</div>';
+  /* sem foto de verdade, o card é só texto — nada de caixa vazia com
+     cabide, que lia como "foto quebrada" (pedido dele, 2026-11-22) */
+  var media = it.img
+    ? '<div class="news-media"><div class="news-ph"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:34px;height:34px;opacity:.45"><path d="M12 3.5a1.8 1.8 0 1 1 1.8 1.8c-.6.25-.8.7-.8 1.4v.6"/><path d="M12 7.3L3.6 14.8a1.6 1.6 0 0 0 1 2.7h14.8a1.6 1.6 0 0 0 1-2.7L12 7.3z"/></svg></div>'
+      + '<img class="news-img" src="'+esc(newsImgSrc(it.img))+'" data-orig="'+esc(it.img)+'" alt=""'
+      + (i === 0 ? ' fetchpriority="high"' : (i >= 4 ? ' loading="lazy"' : ''))
+      + ' onload="this.classList.add(\'on\')" onerror="newsImgErr(this)">'
+      + '</div>'
+    : "";
   return '<a class="news-card" href="'+esc(it.link)+'" target="_blank" rel="noopener">'
     + media
     + '<div class="news-body"><div class="news-meta">'+esc(it.source || "")+' · '+esc(newsAgo(it.ts))+'</div>'
@@ -3721,7 +3725,6 @@ function renderCatSource(){
     + '<input class="photo-input" type="file" accept="image/*" capture="environment" onchange="onPhotoChosen(this)"></label>'
     + '<label class="btn big-cta photo-label" style="display:block;text-align:center;margin-top:10px">'+t("cat.galBtn")
     + '<input class="photo-input" type="file" accept="image/*" onchange="onPhotoChosen(this)"></label>'
-    + batchCtaHTML()
     + '<button class="btn" onclick="closeCatalog()">'+t("cat.cancel")+'</button>';
 }
 /* ---- Montar a peça (catalogação visual, sem foto) ---- */
