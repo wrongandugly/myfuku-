@@ -323,7 +323,8 @@ try{
   .news-card{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;text-decoration:none;color:var(--ink)}
   .news-media{position:relative;width:84px;height:84px;flex:none;border-radius:12px;overflow:hidden;background:var(--indigo-soft)}
   .news-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;background:linear-gradient(135deg,var(--indigo-soft),var(--paper))}
-  .news-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .news-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease}
+  .news-img.on{opacity:1}
   .news-body{flex:1;min-width:0}
   .news-meta{font-size:var(--fs-11);font-weight:700;color:var(--muted);letter-spacing:.03em}
   .news-title{font-size:var(--fs-14);font-weight:700;line-height:1.45;margin-top:3px}
@@ -676,7 +677,7 @@ pt:{
  "cat.toastUpdated":"Peça atualizada ✓",
  "cat.secs":"Peça catalogada em ~{s}s ✓","cat.secsLook":"Peça catalogada em ~{s}s ✓ Seu primeiro look já está na aba Hoje!",
  "cat.secsMissing":"Peça catalogada em ~{s}s ✓ Cadastre também {list} pro look fechar.",
- "ai.btn":"✨ Etiquetar com IA","ai.working":"Etiquetando…","ai.done":"A IA etiquetou ✨ — confira e ajuste o que precisar. É você quem manda.","ai.left":"{n} fotos de IA restantes","ai.limit":"Limite de fotos com IA atingido (20) — o cadastro manual continua igual.","ai.fail":"A IA não respondeu agora — segue no manual, sem problema.","ai.batchBtn":"✨ Foto em lote (cabideiro)","ai.batchNote":"Uma foto do cabideiro inteiro: a IA separa e etiqueta cada peça — você só confirma, uma a uma.","ai.batchTitle":"Separando as peças…","ai.batchSub":"A IA está olhando a foto e montando a sua fila.","ai.batchHead":"Peça {i} de {n} da foto em lote — confira e confirme.","ai.batchSkip":"Pular esta","ai.batchNone":"A IA não achou peças de roupa nessa foto — tente uma foto mais de perto ou siga no cadastro normal.","ai.batchDone":"Foto em lote concluída: {n} peças entraram no armário.",
+ "ai.btn":"✨ Etiquetar com IA","ai.working":"Etiquetando…","ai.done":"A IA etiquetou ✨ — confira e ajuste o que precisar. É você quem manda.","ai.left":"{n} fotos de IA restantes","ai.limit":"Limite de fotos com IA atingido (20) — o cadastro manual continua igual.","ai.fail":"A IA não respondeu agora — segue no manual, sem problema.","ai.batchBtn":"✨ Foto em lote (cabideiro)","ai.batchNote":"Rascunho rápido: a IA separa e etiqueta cada peça da foto do cabideiro — mas a foto de cada peça sai aproximada, com os vizinhos na borda. Pra foto boa, cadastre uma a uma.","ai.batchTitle":"Separando as peças…","ai.batchSub":"A IA está olhando a foto e montando a sua fila.","ai.batchHead":"Peça {i} de {n} da foto em lote — confira e confirme.","ai.batchSkip":"Pular esta","ai.batchNone":"A IA não achou peças de roupa nessa foto — tente uma foto mais de perto ou siga no cadastro normal.","ai.batchDone":"Foto em lote concluída: {n} peças entraram no armário.",
  "miss.bottom":"uma parte de baixo","miss.shoes":"um calçado","miss.and":" e ",
  "photo.err1":"Não consegui ler essa foto 😕 Tenta outra — ou usa uma peça de exemplo, é um toque só.",
  "photo.err2":"A foto não carregou 😕 Tenta de novo — ou usa uma peça de exemplo aqui embaixo, é um toque só.",
@@ -845,7 +846,7 @@ ja:{
  "cat.toastUpdated":"更新しました ✓",
  "cat.secs":"登録しました（約{s}秒）✓","cat.secsLook":"登録しました（約{s}秒）✓ 初めてのコーデが「今日」にあります！",
  "cat.secsMissing":"登録しました（約{s}秒）✓ コーデを完成させるには {list} も登録してください。",
- "ai.btn":"✨ AIでタグ付け","ai.working":"タグ付け中…","ai.done":"AIがタグ付けしました ✨ — 確認して、直すところは直してください。決めるのはあなたです。","ai.left":"AI写真はあと{n}枚使えます","ai.limit":"AI写真の上限（20枚）に達しました — 手動登録はそのまま使えます。","ai.fail":"今はAIが応答しません — 手動でそのまま登録できます。","ai.batchBtn":"✨ まとめて撮影（クローゼット）","ai.batchNote":"クローゼットの写真1枚で、AIが1点ずつ切り分けてタグ付けします。あとは確認するだけ。","ai.batchTitle":"アイテムを切り分け中…","ai.batchSub":"AIが写真を見てリストを作っています。","ai.batchHead":"まとめ写真の {i} / {n} 点目 — 確認してください。","ai.batchSkip":"これはスキップ","ai.batchNone":"この写真では服が見つかりませんでした。近づいて撮るか、通常の登録をお試しください。","ai.batchDone":"まとめ登録が完了しました：{n}点がクローゼットに入りました。",
+ "ai.btn":"✨ AIでタグ付け","ai.working":"タグ付け中…","ai.done":"AIがタグ付けしました ✨ — 確認して、直すところは直してください。決めるのはあなたです。","ai.left":"AI写真はあと{n}枚使えます","ai.limit":"AI写真の上限（20枚）に達しました — 手動登録はそのまま使えます。","ai.fail":"今はAIが応答しません — 手動でそのまま登録できます。","ai.batchBtn":"✨ まとめて撮影（クローゼット）","ai.batchNote":"下書き用：クローゼットの写真からAIが1点ずつ切り分けてタグ付けします。ただし写真は近似で、隣の服が端に入ります。きれいな写真には1点ずつの登録を。","ai.batchTitle":"アイテムを切り分け中…","ai.batchSub":"AIが写真を見てリストを作っています。","ai.batchHead":"まとめ写真の {i} / {n} 点目 — 確認してください。","ai.batchSkip":"これはスキップ","ai.batchNone":"この写真では服が見つかりませんでした。近づいて撮るか、通常の登録をお試しください。","ai.batchDone":"まとめ登録が完了しました：{n}点がクローゼットに入りました。",
  "miss.bottom":"ボトム","miss.shoes":"靴","miss.and":" と ",
  "photo.err1":"その写真は読めませんでした 😕 別の写真を試すか、サンプル服を使ってください。",
  "photo.err2":"写真を読み込めませんでした 😕 もう一度試すか、サンプル服を使ってください。",
@@ -1014,7 +1015,7 @@ en:{
  "cat.toastUpdated":"Piece updated ✓",
  "cat.secs":"Piece added in ~{s}s ✓","cat.secsLook":"Piece added in ~{s}s ✓ Your first look is already on the Today tab!",
  "cat.secsMissing":"Piece added in ~{s}s ✓ Also add {list} so the look comes together.",
- "ai.btn":"✨ Tag with AI","ai.working":"Tagging…","ai.done":"AI tagged it ✨ — check and adjust whatever you need. You're in charge.","ai.left":"{n} AI photos left","ai.limit":"AI photo limit reached (20) — manual cataloging works as always.","ai.fail":"AI didn't answer just now — manual entry works fine, no problem.","ai.batchBtn":"✨ Batch photo (whole rack)","ai.batchNote":"One photo of the whole rack: AI separates and tags each piece — you just confirm, one by one.","ai.batchTitle":"Separating the pieces…","ai.batchSub":"AI is looking at the photo and building your queue.","ai.batchHead":"Piece {i} of {n} from the batch photo — check and confirm.","ai.batchSkip":"Skip this one","ai.batchNone":"AI found no clothing in that photo — try a closer shot or use regular cataloging.","ai.batchDone":"Batch done: {n} pieces joined your closet.",
+ "ai.btn":"✨ Tag with AI","ai.working":"Tagging…","ai.done":"AI tagged it ✨ — check and adjust whatever you need. You're in charge.","ai.left":"{n} AI photos left","ai.limit":"AI photo limit reached (20) — manual cataloging works as always.","ai.fail":"AI didn't answer just now — manual entry works fine, no problem.","ai.batchBtn":"✨ Batch photo (whole rack)","ai.batchNote":"Quick draft: AI separates and tags each piece from the rack photo — but each photo is approximate, with neighbors at the edges. For a good photo, add pieces one by one.","ai.batchTitle":"Separating the pieces…","ai.batchSub":"AI is looking at the photo and building your queue.","ai.batchHead":"Piece {i} of {n} from the batch photo — check and confirm.","ai.batchSkip":"Skip this one","ai.batchNone":"AI found no clothing in that photo — try a closer shot or use regular cataloging.","ai.batchDone":"Batch done: {n} pieces joined your closet.",
  "miss.bottom":"a bottom","miss.shoes":"shoes","miss.and":" and ",
  "photo.err1":"I couldn't read that photo 😕 Try another one — or use a sample piece, it's a single tap.",
  "photo.err2":"The photo didn't load 😕 Try again — or use a sample piece below, it's a single tap.",
@@ -2741,7 +2742,7 @@ function subscribePremium(){
 }
 function resetAll(){
   if(!confirm(t("toast.resetConfirm"))) return;
-  try{ localStorage.removeItem(LS_KEY); localStorage.setItem("myfuku-no-seeds", "1"); }catch(e){}
+  try{ localStorage.removeItem(LS_KEY); localStorage.removeItem(AI_LS_KEY); localStorage.setItem("myfuku-no-seeds", "1"); }catch(e){}
   location.reload();
 }
 
@@ -3584,10 +3585,27 @@ function newsAgo(ts){
   if(s < 86400) return tt("news.agoHour", { n: Math.floor(s / 3600) });
   return tt("news.agoDay", { n: Math.floor(s / 86400) });
 }
-function newsCardHTML(it){
+/* As fotos das matérias são as capas cruas dos veículos (grandes, de
+   servidores variados): passam pelo weserv, que redimensiona pro
+   tamanho do card (252px) e cacheia — ~6x menor nas medições reais.
+   Se o proxy falhar, newsImgErr tenta a URL original antes de desistir
+   (aí fica o placeholder da marca, nunca um buraco quebrado). */
+function newsImgSrc(u){
+  var m = /^https?:\/\/(.+)$/i.exec(u || "");
+  if(!m) return u;
+  return "https://images.weserv.nl/?url=" + encodeURIComponent((/^https:/i.test(u) ? "ssl:" : "") + m[1]) + "&w=252&h=252&fit=cover&output=jpg";
+}
+function newsImgErr(img){
+  if(img.dataset.fb){ img.remove(); return; }
+  img.dataset.fb = "1";
+  img.src = img.dataset.orig;
+}
+function newsCardHTML(it, i){
   var sig = trendSignalForText(it.title);
   var media = '<div class="news-media"><div class="news-ph"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:34px;height:34px;opacity:.45"><path d="M12 3.5a1.8 1.8 0 1 1 1.8 1.8c-.6.25-.8.7-.8 1.4v.6"/><path d="M12 7.3L3.6 14.8a1.6 1.6 0 0 0 1 2.7h14.8a1.6 1.6 0 0 0 1-2.7L12 7.3z"/></svg></div>'
-    + (it.img ? '<img class="news-img" src="'+esc(it.img)+'" alt="" loading="lazy" onerror="this.remove()">' : "")
+    + (it.img ? '<img class="news-img" src="'+esc(newsImgSrc(it.img))+'" data-orig="'+esc(it.img)+'" alt=""'
+        + (i === 0 ? ' fetchpriority="high"' : (i >= 4 ? ' loading="lazy"' : ''))
+        + ' onload="this.classList.add(\'on\')" onerror="newsImgErr(this)">' : "")
     + '</div>';
   return '<a class="news-card" href="'+esc(it.link)+'" target="_blank" rel="noopener">'
     + media
@@ -3974,7 +3992,7 @@ function applyAiTags(tags){
 var batch = null; /* { itens:[{photo,tags}], idx, salvos } */
 function batchCtaHTML(){
   if(aiUsed() >= AI_LIMIT) return '<div class="ai-box" style="margin-top:10px"><div class="ai-limit">'+t("ai.limit")+'</div></div>';
-  return '<label class="btn big-cta photo-label" style="display:block;text-align:center;margin-top:10px">'+t("ai.batchBtn")
+  return '<label class="btn photo-label" style="display:block;text-align:center;margin-top:10px">'+t("ai.batchBtn")
     + '<input class="photo-input" type="file" accept="image/*" capture="environment" onchange="onBatchPhotoChosen(this)"></label>'
     + '<label class="photo-label" style="display:block;text-align:center;margin-top:6px;font-size:13px;color:var(--muted);text-decoration:underline">'+t("ai.batchGal")
     + '<input class="photo-input" type="file" accept="image/*" onchange="onBatchPhotoChosen(this)"></label>'
