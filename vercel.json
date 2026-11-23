@@ -1,5 +1,0 @@
-{
-  "functions": {
-    "api/mercari-probe.js": { "maxDuration": 60 }
-  }
-}
